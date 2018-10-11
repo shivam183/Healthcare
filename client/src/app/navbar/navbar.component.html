@@ -1,0 +1,54 @@
+<!--<nav class="navbar navbar-inverse bg-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" [routerLink]="['/']">MY APP</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-left">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a (click)="onHomeClick()">Home</a></li>
+            </ul>
+
+            <ul class="nav navbar-right">
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
+                        [routerLink]="['/login']">Login</a></li>
+                <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
+                        [routerLink]="['/register']">Register</a></li>
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
+                        (click)="onLogoutClick()" [routerLink]="['/login']">Logout</a></li>
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
+                        [routerLink]="['/dashboard']">Dashboard</a></li>
+                <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
+                        [routerLink]="['/profile']">Profile</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>-->
+
+<div class="navbar navbar-fixed-top navbar-dark">
+    <div class="navbar-header pull-left">
+        <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">Patient Portal</a> </div>
+    <div class="navbar-header pull-left">
+        <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" (click)="onHomeClick()">Home</a>
+    </div>
+    <div class="navbar-header pull-right">
+        <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+            class="btn btn-default navbar-btn" [routerLink]="['/login']">Login</a>
+        <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+            class="btn btn-default navbar-btn" [routerLink]="['/register']">Register</a>
+        <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+            class="btn btn-default navbar-btn" [routerLink]="['/profile']">Profile</a>
+        <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+            class="btn btn-default navbar-btn" (click)="onLogoutClick()" [routerLink]="['/login']">Logout</a>
+        <!--<a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+            class="btn btn-default navbar-btn" [routerLink]="['/dashboard']">Dashboard</a>-->
+
+    </div>
+</div>
