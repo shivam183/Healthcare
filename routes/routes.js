@@ -119,8 +119,7 @@ router.post('/patient', passport.authenticate('jwt', { session: false }), (req, 
             res.json({ success: false, msg: 'Failed to Add Patient' });
         }
         else {
-            console.log(patient);
-            res.status(200).json(patient);
+            res.json({ success: true, msg: 'Patient Added Sucessfully' });
         }
     });
 
