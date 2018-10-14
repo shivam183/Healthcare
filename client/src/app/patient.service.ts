@@ -3,6 +3,7 @@ import { Patient } from './Patient';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { AuthService } from './auth.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 
 @Injectable({
@@ -14,7 +15,8 @@ import { AuthService } from './auth.service';
 export class PatientService {
 
   authToken: any;
-
+  private apiData = new BehaviorSubject<Patient>(null);
+  public apiData$ = this.apiData.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -50,6 +52,11 @@ export class PatientService {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
     return this.http.get('http://localhost:3000/api/patient/' + id, { headers: headers });
+  }
+
+  setData(data) {
+    this.apiData.next(data);
+    //this.apiData$ = this.apiData.asObservable();
   }
 
 

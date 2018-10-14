@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-view-patients',
   templateUrl: './view-patients.component.html',
   styleUrls: ['./view-patients.component.css'],
-  providers: [PatientService]
+  //providers: [PatientService]
 })
 
 @Injectable()
@@ -39,6 +39,8 @@ export class ViewPatientsComponent implements OnInit {
 
   getSinglePatient(id: any) {
     this.patientService.getSinglePatient(id).subscribe((data: any) => {
+      this.patients = data;
+      this.patientService.setData(data);
       this.router.navigate(['/records']);
       console.log(data);
     });

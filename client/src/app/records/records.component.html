@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="patient">
   <h2 class="page-header">{{patient.first_name}} {{patient.last_name}}</h2>
   <ul class="list-group">
-    <li class="list-group-item">Department: {{patient.department}}</li>
-    <li class="list-group-item">Doctor:{{patient.doctor}}</li>
+    <!--  <li class="list-group-item">Department: {{patient.department}}</li>
+    <li class="list-group-item">Doctor:{{patient.doctor}}</li> -->
   </ul>
 </div>
