@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Patient = require('../models/patients');
 const User = require('../models/user');
+const Record = require('../models/record');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
@@ -33,7 +34,7 @@ router.post('/authenticate', (req, res, next) => {
     User.getUserByUsername(username, (err, user) => {
         if (err) { console.log(err) }
         if (!user) {
-            return res.json({ sucess: false, msg: 'user no find' });
+            return res.json({ sucess: false, msg: 'user not found' });
         }
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) { console.log(err) }
@@ -75,6 +76,9 @@ router.get('/patients', passport.authenticate('jwt', { session: false }), (req, 
         if (err) {
             res.json({ success: false, msg: "Something Went Wrong" });
         }
+        if (!patients) {
+            res.json({ success: false, msg: "No Patients" });
+        }
         else {
             res.json(patients)
         }
@@ -86,6 +90,9 @@ router.get('/patients', passport.authenticate('jwt', { session: false }), (req, 
 router.get('/patient/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Patient.findOne({ _id: req.params.id }, (err, patient) => {
         if (err) {
+            res.json({ success: false, msg: "Something Went Wrong" });
+        }
+        if (!patient) {
             res.json({ success: false, msg: "Patient doesnot exist" });
         }
         else {
@@ -160,5 +167,82 @@ router.delete('/patient/:id', passport.authenticate('jwt', { session: false }), 
     });
 
 });
+
+//Get Record for a patient
+router.get('/patient/:id/records', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
+    Record.find({ patient_id: req.params.id }, (err, records) => {
+        if (err) {
+            res.json({ success: false, msg: "Something Went Wrong" });
+        }
+        if (!records) {
+            res.json({ success: false, msg: "No Records Found" });
+        }
+        else {
+            res.json(records)
+        }
+
+    });
+})
+
+//Add record for a Patient
+router.post('/patient/:id/records', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
+    let newRecord = new Record({
+        patient_id: req.body.patient_id,
+        date: req.body.date,
+        nurse_name: req.body.nurse_name,
+        type: req.body.type,
+        category: req.body.category,
+        reading1: req.body.reading1,
+        reading2: req.body.reading2,
+        food_allergy: req.body.food_allergy,
+        bp: req.body.bp,
+        diabetic: req.body.diabetic,
+        heart_disease: req.body.heart_disease,
+        surgery: req.body.surgery,
+        accident: req.body.accident
+    })
+    newRecord.save((err, record) => {
+        if (err) {
+            console.log(err);
+            res.json({ success: false, msg: 'Failed to add Record' })
+        }
+        else {
+            console.log(record);
+            res.json({ success: true, msg: 'Record added Sucessfully' })
+        }
+    })
+
+})
+
+//Delete Record
+router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Record.deleteOne({ _id: req.params.id }, (err, result) => {
+        if (err) {
+            console.log(err)
+            res.json(err);
+        }
+        else {
+            res.json(result);
+        }
+    });
+});
+
+//Get Record By ID
+router.get('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Record.getRecordById({ _id: req.params.id }, (err, record) => {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
+        if (!record) {
+            res.json({ success: false, msg: 'No Record Found' })
+        }
+        else {
+            res.json(record);
+        }
+    })
+})
 
 module.exports = router;

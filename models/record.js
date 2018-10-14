@@ -19,7 +19,7 @@ const RecordSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    Category: {
+    category: {
         type: String,
         required: true
     },
@@ -56,6 +56,6 @@ const RecordSchema = mongoose.Schema({
 });
 const record = module.exports = mongoose.model('Record', RecordSchema);
 
-module.exports.getRecordById(id, callback){
+module.exports.getRecordById = function (id, callback) {
     record.findById(id, callback);
 }
