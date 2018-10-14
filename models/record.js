@@ -3,6 +3,10 @@ const config = require('../config/database');
 
 const RecordSchema = mongoose.Schema({
 
+    patient_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     date: {
         type: String,
         required: true
