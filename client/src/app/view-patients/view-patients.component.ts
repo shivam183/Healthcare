@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { PatientService } from '../patient.service';
 import { Patient } from '../Patient';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-patients',
@@ -9,13 +10,16 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./view-patients.component.css'],
   providers: [PatientService]
 })
+
+@Injectable()
 export class ViewPatientsComponent implements OnInit {
 
   patients: Patient[];
 
   constructor(
     private patientService: PatientService,
-    private flashMessasge: FlashMessagesService) { }
+    private flashMessasge: FlashMessagesService,
+    private router: Router) { }
 
   deletePatient(id: any) {
     var patients = this.patients;
@@ -30,6 +34,14 @@ export class ViewPatientsComponent implements OnInit {
           this.flashMessasge.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
         }
       });
+
+  }
+
+  getSinglePatient(id: any) {
+    this.patientService.getSinglePatient(id).subscribe((data: any) => {
+      this.router.navigate(['/records']);
+      console.log(data);
+    });
 
   }
 

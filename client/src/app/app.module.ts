@@ -1,9 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { PatientsComponent } from './patients/patients.component';
-
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -19,6 +17,9 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ViewPatientsComponent } from './view-patients/view-patients.component';
+import { RecordsComponent } from './records/records.component';
+
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: PatientsComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'patients', component: ViewPatientsComponent, canActivate: [AuthGuard] }
+  { path: 'patients', component: ViewPatientsComponent, canActivate: [AuthGuard] },
+  { path: 'records', component: RecordsComponent, canActivate: [AuthGuard] }
 ];
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     HomeComponent,
     ProfileComponent,
     DashboardComponent,
-    ViewPatientsComponent
+    ViewPatientsComponent,
+    RecordsComponent
   ],
   imports: [
     BrowserModule,

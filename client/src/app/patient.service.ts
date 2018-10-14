@@ -32,8 +32,7 @@ export class PatientService {
   addPatient(newPatient) {
     this.loadToken();
     console.log(this.authToken);
-    var headers = new HttpHeaders().set('Authorization', this.authToken).set
-      ('Content-Type', 'application/json');
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
     return this.http.post('http://localhost:3000/api/patient', newPatient, { headers: headers });
 
   }
@@ -42,9 +41,15 @@ export class PatientService {
 
 
   deletePatient(id) {
-    this.authService.loadToken();
+    this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
     return this.http.delete('http://localhost:3000/api/patient/' + id, { headers: headers });
+  }
+
+  getSinglePatient(id) {
+    this.loadToken();
+    let headers = new HttpHeaders().set('Authorization', this.authToken);
+    return this.http.get('http://localhost:3000/api/patient/' + id, { headers: headers });
   }
 
 

@@ -53,31 +53,24 @@ export class PatientsComponent implements OnInit {
 
     }
 
-    if (!this.validate.validatePatient(newPatient)) {
-
-      this.flashMessage.show('All Fields are Required', { cssClass: 'alert-danger', timeout: 3000 })
-      return false;
-    }
-
-    if (!this.validate.validateEmail(newPatient.email)) {
-
-      this.flashMessage.show('Please enter a valid Email', { cssClass: 'alert-danger', timeout: 3000 })
-      return false;
-    }
+    /* if (!this.validate.validatePatient(newPatient)) {
+ 
+       this.flashMessage.show('All Fields are Required', { cssClass: 'alert-danger', timeout: 3000 })
+       return false;
+     }
+ 
+     if (!this.validate.validateEmail(newPatient.email)) {
+ 
+       this.flashMessage.show('Please enter a valid Email', { cssClass: 'alert-danger', timeout: 3000 })
+       return false;
+     } */
 
     this.patientService.addPatient(newPatient).subscribe((patient: any) => {
       console.log(patient);
-
-      if (patient.success) {
-        this.flashMessage.show("Patient Sucessfully added", { cssClass: 'alert-success', timeout: 3000 });
-        this.router.navigate(['/dashboard']);
-      }
-      else {
-        this.flashMessage.show("Something Went Wrong", { cssClass: 'alert-danger', timeout: 3000 });
-      }
-    }
-
-    );
+      //this.patients.push(patient);
+      this.flashMessage.show("Patient Sucessfully added", { cssClass: 'alert-success', timeout: 3000 });
+      this.router.navigate(['/dashboard']);
+    });
 
 
 
