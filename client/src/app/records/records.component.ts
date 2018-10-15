@@ -22,6 +22,7 @@ export class RecordsComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private router: Router) { }
 
+  //Delete Record
   deleteRecord(pid: any, id: any) {
     var records = this.records;
     this.recordService.deleteRecord(pid, id).subscribe((data: any) => {
@@ -38,20 +39,17 @@ export class RecordsComponent implements OnInit {
 
 
   ngOnInit() {
+    //Get Patient Data from view-patient component
     this.patientService.apiData$.subscribe(patient => {
-      console.log(patient)
       this.patient = patient;
       if (!patient) {
         this.router.navigate(['/patients'])
         this.flashMessage.show("Please Select a Patient", { cssClass: 'alert-danger', timeout: 3000 });
       }
-
     });
 
-
+    //Get all records 
     this.recordService.getRecords(this.patient._id).subscribe((records: any) => {
-
-      console.log(records);
       this.records = records;
     })
   }
