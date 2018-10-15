@@ -22,7 +22,19 @@ export class RecordsComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private router: Router) { }
 
-
+  deleteRecord(pid: any, id: any) {
+    var records = this.records;
+    this.recordService.deleteRecord(pid, id).subscribe((data: any) => {
+      if (data.n == 1) {
+        for (var i = 0; i < records.length; i++) {
+          if (records[i]._id == id) {
+            records.splice(i, 1)
+          }
+        }
+        this.flashMessage.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
+      }
+    });
+  }
 
 
   ngOnInit() {
@@ -31,7 +43,7 @@ export class RecordsComponent implements OnInit {
       this.patient = patient;
       if (!patient) {
         this.router.navigate(['/patients'])
-        this.flashMessage.show("Please Select a Patient",{cssClass:'alert-danger',timeout:3000});
+        this.flashMessage.show("Please Select a Patient", { cssClass: 'alert-danger', timeout: 3000 });
       }
 
     });

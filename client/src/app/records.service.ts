@@ -33,13 +33,13 @@ export class RecordsService {
   deleteRecord(pid, id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.delete('http://localhost:3000/api/patient/' + pid + '/record' + id, { headers: headers });
+    return this.http.delete('http://localhost:3000/api/patient/' + pid + '/record/' + id, { headers: headers });
   }
 
   getSingleRecord(pid, id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.get('http://localhost:3000/api/patient' + pid + '/record' + id, { headers: headers });
+    return this.http.get('http://localhost:3000/api/patient' + pid + '/record/' + id, { headers: headers });
   }
 
 
