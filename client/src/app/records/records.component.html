@@ -1,7 +1,50 @@
 <div *ngIf="patient">
   <h2 class="page-header">{{patient.first_name}} {{patient.last_name}}</h2>
-  <ul class="list-group">
-    <!--  <li class="list-group-item">Department: {{patient.department}}</li>
-    <li class="list-group-item">Doctor:{{patient.doctor}}</li> -->
-  </ul>
+</div>
+<div class="container">
+  <div class="column">
+    <table class="table table-bordered table-hover table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Nurse</th>
+          <th scope="col">Type</th>
+          <th scope="col">Category</th>
+          <th scope="col">Reading#1</th>
+          <th scope="col">Reading#2</th>
+          <th scope="col">Blood Pressure</th>
+          <th scope="col">Food Allergy</th>
+          <th scope="col">Diabetic</th>
+          <th scope="col">Heart Disease</th>
+          <th scope="col">Surgery</th>
+          <th scope="col">Accident</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of records">
+          <th scope="row">{{record.date}}</th>
+          <td>{{record.nurse_name}}</td>
+          <td>{{record.type}}</td>
+          <td>{{record.category}}</td>
+          <td>{{record.reading1}}</td>
+          <td>{{record.reading2}}</td>
+          <td>{{record.bp}}</td>
+          <td>{{record.food_allergy}}</td>
+          <td>{{record.diabetic}}</td>
+          <td>{{record.heart_disease}}</td>
+          <td>{{record.surgery}}</td>
+          <td>{{record.accident}}</td>
+          <td>
+            <div class="btn-toolbar">
+              <button class="btn btn-default" (click)="deletePatient(patient._id)">Edit</button>
+            </div>
+            <div class="btn-toolbar">
+              <button class="btn btn-danger" (click)="deletePatient(patient._id)">Delete</button>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

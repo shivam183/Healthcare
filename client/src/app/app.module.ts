@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ViewPatientsComponent } from './view-patients/view-patients.component';
 import { RecordsComponent } from './records/records.component';
+import { RecordsService } from './records.service';
 
 
 
@@ -51,7 +52,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot()
   ],
-  providers: [ValidateService, PatientService, AuthService, AuthGuard],
+  providers: [ValidateService, PatientService, AuthService, AuthGuard, RecordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

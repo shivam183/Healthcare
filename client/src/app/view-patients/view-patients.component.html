@@ -15,7 +15,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let patient of patients">
-          <!--<app-records [patient]="patient"></app-records> -->
           <th scope="row">{{patient.last_name}}, {{patient.first_name}}</th>
           <td>{{patient.DOB}}</td>
           <td>{{patient.email}}</td>
@@ -24,9 +23,11 @@
           <td>{{patient.department}}</td>
           <td>{{patient.doctor}}</td>
           <td>
-            <button class="btn btn-primary" (click)="getSinglePatient(patient._id)">View</button>
-            <button class="btn btn-default" (click)="deletePatient(patient._id)">Edit</button>
-            <button class="btn btn-danger" (click)="deletePatient(patient._id)">Delete</button>
+            <div class="btn-toolbar">
+              <button class="btn btn-primary" (click)="getSinglePatient(patient._id)">View</button>
+              <button class="btn btn-default" (click)="deletePatient(patient._id)">Edit</button>
+              <button class="btn btn-danger" (click)="deletePatient(patient._id)">Delete</button>
+            </div>
           </td>
         </tr>
       </tbody>

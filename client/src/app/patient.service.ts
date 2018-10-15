@@ -1,8 +1,6 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Patient } from './Patient';
-import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { AuthService } from './auth.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 
@@ -18,7 +16,7 @@ export class PatientService {
   private apiData = new BehaviorSubject<Patient>(null);
   public apiData$ = this.apiData.asObservable();
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   //Retriving Patients
 
@@ -33,9 +31,8 @@ export class PatientService {
 
   addPatient(newPatient) {
     this.loadToken();
-    console.log(this.authToken);
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.post('http://localhost:3000/api/patient', newPatient, { headers: headers });
+    return this.http.post('http://localhost:3000/api/patients', newPatient, { headers: headers });
 
   }
 
@@ -56,7 +53,6 @@ export class PatientService {
 
   setData(data) {
     this.apiData.next(data);
-    //this.apiData$ = this.apiData.asObservable();
   }
 
 

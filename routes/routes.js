@@ -102,7 +102,7 @@ router.get('/patient/:id', passport.authenticate('jwt', { session: false }), (re
 });
 
 //Add Patient
-router.post('/patient', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/patients', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     let newPatient = new Patient({
 
