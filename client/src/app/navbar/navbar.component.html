@@ -1,11 +1,9 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 
     <a class="navbar-brand" (click)="onHomeClick()">Doctors Medical College</a>
 
-    <!-- <div class="navbar-header">
-        <a [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" (click)="onHomeClick()">Home</a>
-    </div>-->
     <ul class="navbar-nav ml-auto">
+
         <li class="nav-item">
             <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                 class="btn btn-outline-dark navbar-btn" [routerLink]="['/login']">Login</a>
@@ -13,6 +11,9 @@
         <li class="navbar-item">
             <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
                 class="btn btn-outline-dark navbar-btn" [routerLink]="['/register']">Register</a>
+        </li>
+        <li class="navbar-item">
+            <a *ngIf="!authService.loggedIn()" class="btn btn-default navbar-btn">Welcome, {{user.name}}</a>
         </li>
         <li class="navbar-item">
             <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
@@ -28,16 +29,4 @@
         </li>
 
     </ul>
-    <!-- <nav class="navbar-header pull-right">
-        <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-            class="btn btn-default navbar-btn" [routerLink]="['/login']">Login</a>
-        <a *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-            class="btn btn-default navbar-btn" [routerLink]="['/register']">Register</a>
-        <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-            class="btn btn-default navbar-btn" [routerLink]="['/patients']">Patients</a>
-        <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-            class="btn btn-default navbar-btn" [routerLink]="['/profile']">Profile</a>
-        <a *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
-            class="btn btn-default navbar-btn" (click)="onLogoutClick()" [routerLink]="['/login']">Logout</a>
-    </nav>-->
 </nav>
