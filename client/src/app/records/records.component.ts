@@ -27,16 +27,18 @@ export class RecordsComponent implements OnInit {
   //Delete Record
   deleteRecord(pid: any, id: any) {
     var records = this.records;
-    this.recordService.deleteRecord(pid, id).subscribe((data: any) => {
-      if (data.n == 1) {
-        for (var i = 0; i < records.length; i++) {
-          if (records[i]._id == id) {
-            records.splice(i, 1)
+    if (window.confirm("Are you sure you want to delete this Record?")) {
+      this.recordService.deleteRecord(pid, id).subscribe((data: any) => {
+        if (data.n == 1) {
+          for (var i = 0; i < records.length; i++) {
+            if (records[i]._id == id) {
+              records.splice(i, 1)
+            }
           }
+          this.flashMessage.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
         }
-        this.flashMessage.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
-      }
-    });
+      });
+    }
   }
 
 

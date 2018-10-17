@@ -23,18 +23,19 @@ export class ViewPatientsComponent implements OnInit {
 
   deletePatient(id: any) {
     var patients = this.patients;
-    this.patientService.deletePatient(id)
-      .subscribe((data: any) => {
-        if (data.n == 1) {
-          for (var i = 0; i < patients.length; i++) {
-            if (patients[i]._id == id) {
-              patients.splice(i, 1);
+    if (window.confirm("Are you sure you want to Delete this patient?")) {
+      this.patientService.deletePatient(id)
+        .subscribe((data: any) => {
+          if (data.n == 1) {
+            for (var i = 0; i < patients.length; i++) {
+              if (patients[i]._id == id) {
+                patients.splice(i, 1);
+              }
             }
+            this.flashMessasge.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
           }
-          this.flashMessasge.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
-        }
-      });
-
+        });
+    }
   }
 
   getSinglePatient(id: any) {
