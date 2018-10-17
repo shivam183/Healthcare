@@ -1,3 +1,116 @@
-<p>
-  add-record works!
-</p>
+<form [formGroup]="addRecord" class="form-horizontal" (submit)="onRecordSubmit()">
+  <div class="panel panel-primary">
+    <div class="panel-heading text-center">
+      <h3 class="panel-title">Add Record</h3>
+    </div>
+    <hr>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="date">Date</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="date" id="date" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="nurse">Nurse</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="nurse" id="nurse" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="type">Type</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="type" id="type" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="category">Category</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="category" id="category" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="reading1">Reading#1</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="reading1" id="reading1" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="reading2">Reading#2</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="reading2" id="reading2" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="bp">Blood Pressure</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="bp" id="bp" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">Food Allergy</label>
+        <div class="col-md-8">
+          <label class="radio-inline">
+            <input type="radio" formControlName="foodAllergy" value="no">No
+          </label>
+          <label class="radio-inline">
+            <input type="radio" formControlName="foodAllergy" value="yes">Yes
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">Diabetic</label>
+        <div class="col-md-8">
+          <label class="radio-inline">
+            <input type="radio" formControlName="diabetic" value="no">No
+          </label>
+          <label class="radio-inline">
+            <input type="radio" formControlName="diabetic" value="yes">Yes
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">Heart Disease</label>
+        <div class="col-md-8">
+          <label class="radio-inline">
+            <input type="radio" formControlName="heartDisease" value="no">No
+          </label>
+          <label class="radio-inline">
+            <input type="radio" formControlName="heartDisease" value="yes">Yes
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">Surgery</label>
+        <div class="col-md-8">
+          <label class="radio-inline mr-1">
+            <input type="radio" formControlName="surgery" value="no">No
+          </label>
+          <label class="radio-inline">
+            <input type="radio" formControlName="surgery" value="yes">Yes
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">Accident</label>
+        <div class="col-md-8">
+          <label class="radio-inline">
+            <input type="radio" formControlName="accident" value="no">No
+          </label>
+          <label class="radio-inline">
+            <input type="radio" formControlName="accident" value="yes">Yes
+          </label>
+        </div>
+      </div>
+
+    </div>
+    <div class="panel-footer">
+      <button class="btn btn-primary" type="submit">Add Record</button>
+    </div>
+  </div>
+</form>
