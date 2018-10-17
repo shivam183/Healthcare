@@ -19,6 +19,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ViewPatientsComponent } from './view-patients/view-patients.component';
 import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
+import { AddRecordComponent } from './add-record/add-record.component';
 
 
 
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   { path: 'patient', component: PatientsComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'patients', component: ViewPatientsComponent, canActivate: [AuthGuard] },
-  { path: 'records', component: RecordsComponent, canActivate: [AuthGuard] }
+  { path: 'records', component: RecordsComponent, canActivate: [AuthGuard] },
+  { path: 'addRecord', component: AddRecordComponent, canActivate: [AuthGuard] }
 ];
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     DashboardComponent,
     ViewPatientsComponent,
-    RecordsComponent
+    RecordsComponent,
+    AddRecordComponent
   ],
   imports: [
     BrowserModule,

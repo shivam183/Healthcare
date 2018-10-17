@@ -41,6 +41,10 @@ export class RecordsComponent implements OnInit {
     }
   }
 
+  redirect(){
+    this.router.navigate(['/addRecord']);
+  }
+
 
   ngOnInit() {
     //Get Patient Data from view-patient component
