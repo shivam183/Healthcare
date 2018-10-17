@@ -16,6 +16,8 @@ export class RecordsComponent implements OnInit {
 
   patient: Patient;
   records: Records[];
+  ID: any;
+  PatientName: any;
 
   constructor(private patientService: PatientService,
     private recordService: RecordsService,
@@ -41,15 +43,19 @@ export class RecordsComponent implements OnInit {
   ngOnInit() {
     //Get Patient Data from view-patient component
     this.patientService.apiData$.subscribe(patient => {
-      this.patient = patient;
-      if (!patient) {
-        this.router.navigate(['/patients'])
-        this.flashMessage.show("Please Select a Patient", { cssClass: 'alert-danger', timeout: 3000 });
+
+      if (patient) {
+        this.patient = patient;
+        this.recordService.saveID(patient._id);
       }
+
     });
 
+    this.ID = JSON.parse(localStorage.getItem("ID"));
+
+
     //Get all records 
-    this.recordService.getRecords(this.patient._id).subscribe((records: any) => {
+    this.recordService.getRecords(this.ID).subscribe((records: any) => {
       this.records = records;
     })
   }

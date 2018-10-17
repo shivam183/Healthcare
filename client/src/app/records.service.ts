@@ -12,9 +12,15 @@ export class RecordsService {
 
   authToken: any
 
+
   loadToken() {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
+  }
+
+  saveID(id) {
+    localStorage.removeItem("ID");
+    localStorage.setItem("ID", JSON.stringify(id));
   }
 
   getRecords(id) {
