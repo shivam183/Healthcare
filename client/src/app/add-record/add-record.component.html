@@ -77,60 +77,75 @@
           </span>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.food_allergy}">
         <label class="col-md-2 control-label">Food Allergy</label>
         <div class="col-md-8">
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="no">No
+            <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="no" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="yes">Yes
+            <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="yes" (blur)="logValidationErrors()">Yes
           </label>
         </div>
+        <span class="help-block" *ngIf="formErrors.food_allergy">
+          {{formErrors.food_allergy}}
+        </span>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.diabetic}">
         <label class="col-md-2 control-label">Diabetic</label>
         <div class="col-md-8">
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="no">No
+            <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="no" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="yes">Yes
+            <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="yes" (blur)="logValidationErrors()">Yes
           </label>
         </div>
+        <span class="help-block" *ngIf="formErrors.diabetic">
+          {{formErrors.diabetic}}
+        </span>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.heart_disease}">
         <label class="col-md-2 control-label">Heart Disease</label>
         <div class="col-md-8">
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="no">No
+            <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="no" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="yes">Yes
+            <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="yes" (blur)="logValidationErrors()">Yes
           </label>
         </div>
+        <span class="help-block" *ngIf="formErrors.heart_disease">
+          {{formErrors.heart_disease}}
+        </span>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.surgery}">
         <label class="col-md-2 control-label">Surgery</label>
         <div class="col-md-8">
           <label class="radio-inline mr-1">
-            <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="no">No
+            <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="no" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="yes">Yes
+            <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="yes" (blur)="logValidationErrors()">Yes
           </label>
         </div>
+        <span class="help-block" *ngIf="formErrors.surgery">
+          {{formErrors.surgery}}
+        </span>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.accident}">
         <label class="col-md-2 control-label">Accident</label>
         <div class="col-md-8">
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="accident" formControlName="accident" value="no">No
+            <input type="radio" [(ngModel)]="accident" formControlName="accident" value="no" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
-            <input type="radio" [(ngModel)]="accident" formControlName="accident" value="yes">Yes
+            <input type="radio" [(ngModel)]="accident" formControlName="accident" value="yes" (blur)="logValidationErrors()">Yes
           </label>
         </div>
+        <span class="help-block" *ngIf="formErrors.accident">
+          {{formErrors.accident}}
+        </span>
       </div>
 
     </div>

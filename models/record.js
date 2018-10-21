@@ -13,25 +13,30 @@ const RecordSchema = mongoose.Schema({
     },
     nurse_name: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     type: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     category: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     reading1: {
         type: String,
+        required: true
     },
     reading2: {
         type: String,
     },
     food_allergy: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     bp: {
         type: String,
@@ -39,19 +44,23 @@ const RecordSchema = mongoose.Schema({
     },
     diabetic: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     heart_disease: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     surgery: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
     accident: {
         type: String,
-        required: true
+        required: true,
+        uppercase: true
     },
 });
 const record = module.exports = mongoose.model('Record', RecordSchema);

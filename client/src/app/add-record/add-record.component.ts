@@ -34,8 +34,7 @@ export class AddRecordComponent implements OnInit {
 
   validationMessages = {
     'date': {
-      'required': 'Date is required.',
-      'pattern': 'Please provide correct format of date DD/MM/YYYY'
+      'required': 'Date is required.'
     },
     'nurse': {
       'required': 'Nurse name is required.'
@@ -52,6 +51,21 @@ export class AddRecordComponent implements OnInit {
     'bp': {
       'required': 'Blood Pressure is required.'
     },
+    'food_allergy': {
+      'required': 'Please Specify Food Allergy.'
+    },
+    'diabetic': {
+      'required': 'Please Specify Diabetic.'
+    },
+    'heart_disease': {
+      'required': 'Please Specify Heart Disease'
+    },
+    'surgery': {
+      'required': 'Please Specify Surgery'
+    },
+    'accident': {
+      'required': 'Please Spcify Accident'
+    }
   };
 
   formErrors = {
@@ -60,7 +74,12 @@ export class AddRecordComponent implements OnInit {
     'type': '',
     'category': '',
     'reading1': '',
-    'bp': ''
+    'bp': '',
+    'food_allergy': '',
+    'diabetic': '',
+    'heart_disease': '',
+    'surgery': '',
+    'accident': ''
   };
 
 
@@ -104,11 +123,11 @@ export class AddRecordComponent implements OnInit {
       reading1: ['', Validators.required],
       reading2: [''],
       bp: ['', Validators.required],
-      food_allergy: ['no'],
-      diabetic: ['no'],
-      heart_disease: ['no'],
-      surgery: ['no'],
-      accident: ['no'],
+      food_allergy: ['no', Validators.required],
+      diabetic: ['no', Validators.required],
+      heart_disease: ['no', Validators.required],
+      surgery: ['no', Validators.required],
+      accident: ['no', Validators.required],
     });
 
     this.addRecord.valueChanges.subscribe((data) => {
