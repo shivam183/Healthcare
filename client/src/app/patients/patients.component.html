@@ -1,53 +1,97 @@
 <div class="container">
   <h2 class="page-header text-center">Add Patient</h2>
   <hr>
-  <form (submit)="addPatient()">
-    <div class="form-group">
+  <form [formGroup]="addPatientForm" (submit)="addPatient()">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.first_name}">
       <label>First Name</label>
-      <input type="text" [(ngModel)]="first_name" name="first_name" class="form-control" required>
+      <input type="text" placeholder="First Name" [(ngModel)]="first_name" formControlName="first_name" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.first_name">
+        {{formErrors.first_name}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.last_name}">
       <label>Last Name</label>
-      <input type="text" [(ngModel)]="last_name" name="last_name" class="form-control" required>
+      <input type="text" placeholder="Last Name" [(ngModel)]="last_name" formControlName="last_name" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.last_name">
+        {{formErrors.last_name}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.email}">
       <label>Email</label>
-      <input type="text" [(ngModel)]="email" name="email" class="form-control" required>
+      <input type="email" placeholder="Email" [(ngModel)]="email" formControlName="email" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.email">
+        {{formErrors.email}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.DOB}">
       <label>Date of Birth</label>
-      <input type="text" [(ngModel)]="DOB" name="DOB" class="form-control" required>
+      <input type="date" [(ngModel)]="DOB" formControlName="DOB" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.DOB">
+        {{formErrors.DOB}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.address}">
       <label>Address</label>
-      <input type="text" [(ngModel)]="address" name="address" class="form-control" required>
+      <input type="text" placeholder="Address" [(ngModel)]="address" formControlName="address" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.address">
+        {{formErrors.address}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.city}">
       <label>City</label>
-      <input type="text" [(ngModel)]="city" name="city" class="form-control" required>
+      <input type="text" placeholder="City" [(ngModel)]="city" formControlName="city" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.city">
+        {{formErrors.city}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.province}">
       <label>Province</label>
-      <input type="text" [(ngModel)]="province" name="province" class="form-control" required>
+      <input type="text" placeholder="Province" [(ngModel)]="province" formControlName="province" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.province">
+        {{formErrors.province}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.postal_code}">
       <label>Postal Code</label>
-      <input type="text" [(ngModel)]="postal_code" name="postal_code" class="form-control" required>
+      <input type="text" placeholder="Postal Code" [(ngModel)]="postal_code" formControlName="postal_code" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.postal_code">
+        {{formErrors.postal_code}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.phone}">
       <label>Phone Number</label>
-      <input type="text" [(ngModel)]="phone" name="phone" class="form-control" required>
+      <input type="number" placeholder="Phone Number" [(ngModel)]="phone" formControlName="phone" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.phone">
+        {{formErrors.phone}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.department}">
       <label>Department</label>
-      <input type="text" [(ngModel)]="department" name="department" class="form-control" required>
+      <input type="text" placeholder="Department" [(ngModel)]="department" formControlName="department" class="form-control"
+        (blur)="logValidationErrors()" required>
+      <span class="help-block" *ngIf="formErrors.department">
+        {{formErrors.department}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.doctor}">
       <label>Doctor</label>
-      <input type="text" [(ngModel)]="doctor" name="doctor" class="form-control" required>
+      <input type="text" placeholder="Doctor's Name" [(ngModel)]="doctor" formControlName="doctor" class="form-control"
+        required>
+      <span class="help-block" *ngIf="formErrors.doctor">
+        {{formErrors.doctor}}
+      </span>
     </div>
     <div class="text-center">
-      <input type="submit" class="btn btn-success " value="Add Patient">
+      <input type="submit" class="btn btn-success " [disabled]="!addPatientForm.valid" value="Add Patient">
     </div>
   </form>
 </div>
