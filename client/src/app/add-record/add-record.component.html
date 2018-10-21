@@ -5,38 +5,53 @@
     </div>
     <hr>
     <div class="panel-body">
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.date}">
         <label class="col-sm-2 control-label" for="date">Date</label>
         <div class="col-sm-8">
-          <input type="text" formControlName="date" id="date" class="form-control">
+          <input type="text" formControlName="date" id="date" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.date">
+            {{formErrors.date}}
+          </span>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.nurse}">
         <label class="col-sm-2 control-label" for="nurse">Nurse</label>
         <div class="col-sm-8">
-          <input type="text" formControlName="nurse" id="nurse" class="form-control">
+          <input type="text" formControlName="nurse" id="nurse" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.nurse">
+            {{formErrors.nurse}}
+          </span>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.type}">
         <label class="col-sm-2 control-label" for="type">Type</label>
         <div class="col-sm-8">
-          <input type="text" formControlName="type" id="type" class="form-control">
+          <input type="text" formControlName="type" id="type" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.type">
+            {{formErrors.type}}
+          </span>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.category}">
         <label class="col-sm-2 control-label" for="category">Category</label>
         <div class="col-sm-8">
-          <input type="text" formControlName="category" id="category" class="form-control">
+          <input type="text" formControlName="category" id="category" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.category">
+            {{formErrors.category}}
+          </span>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.reading1}">
         <label class="col-sm-2 control-label" for="reading1">Reading#1</label>
         <div class="col-sm-8">
-          <input type="text" formControlName="reading1" id="reading1" class="form-control">
+          <input type="text" formControlName="reading1" id="reading1" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.reading1">
+            {{formErrors.reading1}}
+          </span>
         </div>
       </div>
 
@@ -46,10 +61,13 @@
           <input type="text" formControlName="reading2" id="reading2" class="form-control">
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.bp}">
         <label class="col-sm-2 control-label" for="bp">Blood Pressure</label>
         <div class="col-sm-8">
-          <input type="text" formControlName="bp" id="bp" class="form-control">
+          <input type="text" formControlName="bp" id="bp" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.bp">
+            {{formErrors.bp}}
+          </span>
         </div>
       </div>
       <div class="form-group">

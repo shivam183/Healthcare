@@ -63,8 +63,6 @@ export class AddRecordComponent implements OnInit {
 
 
   onRecordSubmit() {
-    this.logValidationErrors(this.addRecord);
-
 
   }
 
@@ -84,16 +82,20 @@ export class AddRecordComponent implements OnInit {
       surgery: ['no'],
       accident: ['no'],
     });
+
+    this.addRecord.valueChanges.subscribe((data) => {
+      this.logValidationErrors(this.addRecord);
+    })
   }
 
-  logValidationErrors(group: FormGroup): void {
+  logValidationErrors(group: FormGroup = this.addRecord): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       } else {
         this.formErrors[key] = '';
-        if (abstractControl && !abstractControl.valid) {
+        if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
           const messages = this.validationMessages[key];
           for (const errorKey in abstractControl.errors) {
             if (errorKey) {
