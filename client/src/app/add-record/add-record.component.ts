@@ -49,12 +49,21 @@ export class AddRecordComponent implements OnInit {
     },
   };
 
+  formErrors = {
+    'date': '',
+    'nurse': '',
+    'type': '',
+    'category': '',
+    'reading1': '',
+    'bp': ''
+  };
+
 
   constructor(private fb: FormBuilder) { }
 
 
   onRecordSubmit() {
-
+    this.logValidationErrors(this.addRecord);
 
 
   }
@@ -77,13 +86,21 @@ export class AddRecordComponent implements OnInit {
     });
   }
 
-  logKeyValuePairs(group: FormGroup): void {
+  logValidationErrors(group: FormGroup): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
-        this.logKeyValuePairs(abstractControl);
+        this.logValidationErrors(abstractControl);
       } else {
-        abstractControl.errors;
+        this.formErrors[key] = '';
+        if (abstractControl && !abstractControl.valid) {
+          const messages = this.validationMessages[key];
+          for (const errorKey in abstractControl.errors) {
+            if (errorKey) {
+              this.formErrors[key] += messages[errorKey] + ' ';
+            }
+          }
+        }
       }
     })
   }
