@@ -1,5 +1,6 @@
 # DOCTORS MEDICAL COLLEGE
-DMC is a portal where nurses can register and login and view all patients and add patients in additional <br>records can be added for all patients. nurses can perform CRUD operations on patients and records<br>
+DMC is a portal where nurses can register and login and view all patients and add patients in additional records can be added for all patients. nurses can perform CRUD operations on patients and records.
+
 This is a MEAN Stack Application.<br>
 
 Packages Used-<br>
