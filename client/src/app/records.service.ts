@@ -32,7 +32,7 @@ export class RecordsService {
   addRecord(id, newPatient) {
     this.loadToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.post('http://localhost:3000/api/patient/' + id, newPatient, { headers: headers });
+    return this.http.post('http://localhost:3000/api/patient/' + id + '/records', newPatient, { headers: headers });
 
   }
 
