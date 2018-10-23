@@ -136,7 +136,7 @@ router.post('/patients', passport.authenticate('jwt', { session: false }), (req,
 //Update Patient
 router.put('/patient/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
-    let newPatient = new Patient({
+    let Patient = ({
 
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -151,7 +151,17 @@ router.put('/patient/:id', passport.authenticate('jwt', { session: false }), (re
         doctor: req.body.doctor
     });
 
-    newPatient.update()
+    Patient.findByIdAndUpdate({ _id: req.params.id }, Patient, { new: true }, (err, patient) => {
+        if (err) {
+            res.json({ success: false, msg: 'Failed to Update the Patient' })
+        }
+        if (!patient) {
+            res.json({ success: false, msg: 'No Patient with that ID is Found' })
+        }
+        else {
+            res.json({ success: true, msg: 'Patient Updated Sucessfully' })
+        }
+    })
 });
 
 //Delete patient
