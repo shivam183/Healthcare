@@ -37,8 +37,6 @@ export class PatientService {
   }
 
   //Delete Patient
-
-
   deletePatient(id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
@@ -50,6 +48,14 @@ export class PatientService {
     let headers = new HttpHeaders().set('Authorization', this.authToken);
     return this.http.get('http://localhost:3000/api/patient/' + id, { headers: headers });
   }
+
+  //Update Patient
+  updatePatient(id, Patient) {
+    this.loadToken();
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
+    return this.http.put('http://localhost:3000/api/patient/' + id, Patient, { headers: headers });
+  }
+
 
   setData(data) {
     this.apiData.next(data);

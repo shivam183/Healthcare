@@ -43,8 +43,16 @@ export class ViewPatientsComponent implements OnInit {
       this.patients = data;
       this.patientService.setData(data);
       this.router.navigate(['/records']);
-      console.log(data);
     });
+
+  }
+
+  editPatient(id: any) {
+    this.patientService.getSinglePatient(id).subscribe((data: any) => {
+      this.patients = data;
+      this.patientService.setData(data);
+      this.router.navigate(['/editPatient']);
+    })
 
   }
 
