@@ -130,8 +130,6 @@ export class EditPatientComponent implements OnInit {
       this.logValidationErrors(this.editPatientForm);
     })
 
-
-
   }
 
   logValidationErrors(group: FormGroup = this.editPatientForm): void {

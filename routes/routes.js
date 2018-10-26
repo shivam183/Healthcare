@@ -161,7 +161,7 @@ router.put('/patient/:id', passport.authenticate('jwt', { session: false }), (re
         else {
             res.json({ success: true, msg: 'Patient Updated Sucessfully' })
         }
-    })
+    });
 });
 
 //Delete patient
@@ -193,7 +193,7 @@ router.get('/patient/:id/records', passport.authenticate('jwt', { session: false
         }
 
     });
-})
+});
 
 //Add record for a Patient
 router.post('/patient/:id/records', passport.authenticate('jwt', { session: false }), (req, res, next) => {
@@ -222,9 +222,9 @@ router.post('/patient/:id/records', passport.authenticate('jwt', { session: fals
             console.log(record);
             res.json({ success: true, msg: 'Record added Sucessfully' })
         }
-    })
+    });
 
-})
+});
 
 //Delete Record
 router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
@@ -252,7 +252,39 @@ router.get('/patient/:pid/record/:id', passport.authenticate('jwt', { session: f
         else {
             res.json(record);
         }
-    })
-})
+    });
+});
+
+router.put('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
+    let record = ({
+        patient_id: req.body.patient_id,
+        date: req.body.date,
+        nurse_name: req.body.nurse_name,
+        type: req.body.type,
+        category: req.body.category,
+        reading1: req.body.reading1,
+        reading2: req.body.reading2,
+        food_allergy: req.body.food_allergy,
+        bp: req.body.bp,
+        diabetic: req.body.diabetic,
+        heart_disease: req.body.heart_disease,
+        surgery: req.body.surgery,
+        accident: req.body.accident
+    });
+
+    Record.findByIdAndUpdate({ _id: req.params.id }, record, { new: true }, (err, record) => {
+        if (err) {
+            res.json({ success: false, msg: 'Failed to Update the Record' })
+        }
+        if (!record) {
+            res.json({ success: false, msg: 'No Record Found' })
+        }
+        else {
+            res.json({ success: true, msg: 'Record Update Successfully' })
+        }
+    });
+
+});
 
 module.exports = router;
