@@ -21,6 +21,7 @@ import { RecordsComponent } from './records/records.component';
 import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { EditRecordComponent } from './edit-record/edit-record.component';
 
 
 
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     ViewPatientsComponent,
     RecordsComponent,
     AddRecordComponent,
-    EditPatientComponent
+    EditPatientComponent,
+    EditRecordComponent
   ],
   imports: [
     BrowserModule,
