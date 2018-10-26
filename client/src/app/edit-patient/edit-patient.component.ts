@@ -17,19 +17,6 @@ export class EditPatientComponent implements OnInit {
   ID: any;
   editPatientForm: FormGroup;
 
-  first_name: String;
-  last_name: String;
-  DOB: String;
-  email: String;
-  address: String;
-  city: String;
-  province: String;
-  postal_code: String;
-  phone: String;
-  department: String;
-  doctor: String
-
-
   formErrors = {
     'first_name': '',
     'last_name': '',
@@ -105,7 +92,6 @@ export class EditPatientComponent implements OnInit {
       doctor: this.patient.doctor
     }
     this.patientService.updatePatient(this.ID, patient).subscribe((patient: any) => {
-      console.log(patient);
       this.flashMessage.show(patient.msg, { cssClass: 'alert-success', timeout: 3000 })
       this.router.navigate(['/patients'])
     })
