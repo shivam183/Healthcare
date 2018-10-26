@@ -16,6 +16,7 @@ export class RecordsComponent implements OnInit {
 
   patient: Patient;
   records: Records[];
+  record: Records;
   ID: any;
   PatientName: any;
 
@@ -41,7 +42,15 @@ export class RecordsComponent implements OnInit {
     }
   }
 
-  redirect(){
+  editRecord(pid: any, id: any) {
+    this.recordService.getSingleRecord(pid, id).subscribe((record: any) => {
+      this.record = record;
+      this.recordService.setData(record);
+      this.router.navigate(['/editRecord']);
+    })
+
+  }
+  redirect() {
     this.router.navigate(['/addRecord']);
   }
 
