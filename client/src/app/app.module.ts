@@ -37,7 +37,8 @@ const appRoutes: Routes = [
   { path: 'patients', component: ViewPatientsComponent, canActivate: [AuthGuard] },
   { path: 'records', component: RecordsComponent, canActivate: [AuthGuard] },
   { path: 'addRecord', component: AddRecordComponent, canActivate: [AuthGuard] },
-  { path: 'editPatient', component: EditPatientComponent, canActivate: [AuthGuard] }
+  { path: 'editPatient', component: EditPatientComponent, canActivate: [AuthGuard] },
+  { path: 'editRecord', component: EditRecordComponent, canActivate: [AuthGuard] }
 ];
 @NgModule({
   declarations: [

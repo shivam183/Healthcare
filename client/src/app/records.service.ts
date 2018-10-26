@@ -13,6 +13,7 @@ export class RecordsService {
   authToken: any
 
 
+
   loadToken() {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
@@ -29,10 +30,10 @@ export class RecordsService {
     return this.http.get('http://localhost:3000/api/patient/' + id + '/records', { headers: headers });
   }
 
-  addRecord(id, newPatient) {
+  addRecord(id, newRecord) {
     this.loadToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.post('http://localhost:3000/api/patient/' + id + '/records', newPatient, { headers: headers });
+    return this.http.post('http://localhost:3000/api/patient/' + id + '/records', newRecord, { headers: headers });
 
   }
 
@@ -48,5 +49,10 @@ export class RecordsService {
     return this.http.get('http://localhost:3000/api/patient' + pid + '/record/' + id, { headers: headers });
   }
 
+  editRecord(pid, id, record) {
+    this.loadToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
+    return this.http.put('http://localhost:3000/api/patient' + pid + '/record/' + id, record, { headers: headers })
+  }
 
 }
