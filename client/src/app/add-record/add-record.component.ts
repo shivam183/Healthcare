@@ -48,6 +48,9 @@ export class AddRecordComponent implements OnInit {
     'reading1': {
       'required': 'Atleast 1 reading is required.'
     },
+    'reading2': {
+      'required': 'If no reading#2. Please put -(dash).'
+    },
     'bp': {
       'required': 'Blood Pressure is required.'
     },
@@ -121,13 +124,13 @@ export class AddRecordComponent implements OnInit {
       type: ['', Validators.required],
       category: ['', Validators.required],
       reading1: ['', Validators.required],
-      reading2: [''],
+      reading2: ['', Validators.required],
       bp: ['', Validators.required],
-      food_allergy: ['no', Validators.required],
-      diabetic: ['no', Validators.required],
-      heart_disease: ['no', Validators.required],
-      surgery: ['no', Validators.required],
-      accident: ['no', Validators.required],
+      food_allergy: ['', Validators.required],
+      diabetic: ['', Validators.required],
+      heart_disease: ['', Validators.required],
+      surgery: ['', Validators.required],
+      accident: ['', Validators.required],
     });
 
     this.addRecord.valueChanges.subscribe((data) => {

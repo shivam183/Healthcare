@@ -31,14 +31,5 @@ export class ValidateService {
     }
   }
 
-  validatePatient(Patient) {
-    if (Patient.first_name == undefined || Patient.fist_name.length == 0 || Patient.last_name == undefined || Patient.last_name.length == 0 || Patient.email == undefined || Patient.email.length == 0 || Patient.DOB == undefined || Patient.DOB.length == 0 || Patient.address == undefined || Patient.address.length == 0 || Patient.city == undefined || Patient.city.length == 0 || Patient.province == undefined || Patient.province.length == 0 || Patient.postal_code == undefined || Patient.postal_code.length == 0 || Patient.phone == undefined || Patient.phone.length == 0 || Patient.department == undefined || Patient.department.length == 0 || Patient.doctor == undefined || Patient.doctor.length == 0) {
 
-      return false;
-    }
-    else {
-      return true;
-    }
-
-  }
 }
