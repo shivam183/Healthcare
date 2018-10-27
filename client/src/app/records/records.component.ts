@@ -44,7 +44,7 @@ export class RecordsComponent implements OnInit {
 
   editRecord(pid: any, id: any) {
     this.recordService.getSingleRecord(pid, id).subscribe((record: any) => {
-      this.record = record;
+      this.records = record;
       this.recordService.setData(record);
       this.router.navigate(['/editRecord']);
     })

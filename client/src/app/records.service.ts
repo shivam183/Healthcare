@@ -54,7 +54,7 @@ export class RecordsService {
   editRecord(pid, id, record) {
     this.loadToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.put('http://localhost:3000/api/patient/' + pid + '/record/' + id, record, { headers: headers })
+    return this.http.put('http://localhost:3000/api/patient/' + pid + '/record/' + id, record, { headers: headers });
   }
 
   setData(data) {

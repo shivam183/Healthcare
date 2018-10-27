@@ -122,7 +122,7 @@ router.post('/patients', passport.authenticate('jwt', { session: false }), (req,
 
     newPatient.save((err, patient) => {
         if (err) {
-            console.log(err);
+
             res.json({ success: false, msg: 'Failed to Add Patient' });
         }
         else {
@@ -215,11 +215,11 @@ router.post('/patient/:id/records', passport.authenticate('jwt', { session: fals
     })
     newRecord.save((err, record) => {
         if (err) {
-            console.log(err);
+
             res.json({ success: false, msg: 'Failed to add Record' })
         }
         else {
-            console.log(record);
+
             res.json({ success: true, msg: 'Record added Sucessfully' })
         }
     });
@@ -230,7 +230,7 @@ router.post('/patient/:id/records', passport.authenticate('jwt', { session: fals
 router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Record.deleteOne({ _id: req.params.id }, (err, result) => {
         if (err) {
-            console.log(err)
+
             res.json(err);
         }
         else {
@@ -243,7 +243,7 @@ router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session
 router.get('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Record.getRecordById({ _id: req.params.id }, (err, record) => {
         if (err) {
-            console.log(err);
+
             res.json(err);
         }
         if (!record) {
@@ -276,12 +276,14 @@ router.put('/patient/:pid/record/:id', passport.authenticate('jwt', { session: f
     Record.findByIdAndUpdate({ _id: req.params.id }, record, { new: true }, (err, record) => {
         if (err) {
             res.json({ success: false, msg: 'Failed to Update the Record' })
+
         }
         if (!record) {
             res.json({ success: false, msg: 'No Record Found' })
+
         }
         else {
-            res.json({ success: true, msg: 'Record Update Successfully' })
+            res.json({ success: true, msg: 'Record Updated Successfully' })
         }
     });
 
