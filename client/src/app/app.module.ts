@@ -22,6 +22,7 @@ import { AddRecordComponent } from './add-record/add-record.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { EditRecordComponent } from './edit-record/edit-record.component';
 import { PatientFiterPipe } from './view-patients/patient-filter.pipe';
+import { RecordFiterPipe } from './records/record-filter.pipe';
 
 
 const appRoutes: Routes = [
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     AddRecordComponent,
     EditPatientComponent,
     EditRecordComponent,
-    PatientFiterPipe
+    PatientFiterPipe,
+    RecordFiterPipe
   ],
   imports: [
     BrowserModule,

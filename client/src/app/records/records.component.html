@@ -3,6 +3,9 @@
 </div>
 <div class="container">
   <div class="column">
+    <div class="text-right">
+      <input type="date" [(ngModel)]="searchRecord" placeholder="Search By Date" width="300px">
+    </div>
     <table class="table table-bordered table-hover table-dark">
       <thead>
         <tr>
@@ -22,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let record of records">
+        <tr *ngFor="let record of records | recordFilter:searchRecord">
           <th scope="row">{{record.date}}</th>
           <td>{{record.nurse_name}}</td>
           <td>{{record.type}}</td>

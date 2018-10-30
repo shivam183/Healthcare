@@ -20,6 +20,8 @@ export class RecordsComponent implements OnInit {
   ID: any;
   PatientName: any;
 
+  searchRecord: string;
+
   constructor(private patientService: PatientService,
     private recordService: RecordsService,
     private flashMessage: FlashMessagesService,
