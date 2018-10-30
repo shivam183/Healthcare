@@ -1,25 +1,41 @@
 <div class="container">
   <h2 class="page-header text-center">Register</h2>
   <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
-  <form (submit)="onRegisterSubmit()">
-    <div class="form-group">
+  <form [formGroup]="register" (submit)="onRegisterSubmit()">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.name}">
       <label>Full Name</label>
-      <input type="text" [(ngModel)]="name" name="name" class="form-control" required>
+      <input type="text" [(ngModel)]="name" formControlName="name" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.name">
+        {{formErrors.name}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.email}">
       <label>Email</label>
-      <input type="text" [(ngModel)]="email" name="email" class="form-control" required>
+      <input type="text" [(ngModel)]="email" formControlName="email" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.email">
+        {{formErrors.email}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.username}">
       <label>Username</label>
-      <input type="text" [(ngModel)]="username" name="username" class="form-control" required>
+      <input type="text" [(ngModel)]="username" formControlName="username" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.username">
+        {{formErrors.username}}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'has-error':formErrors.password}">
       <label>Password</label>
-      <input type="password" [(ngModel)]="password" name="password" class="form-control" required>
+      <input type="password" [(ngModel)]="password" formControlName="password" class="form-control" (blur)="logValidationErrors()"
+        required>
+      <span class="help-block" *ngIf="formErrors.password">
+        {{formErrors.password}}
+      </span>
     </div>
     <div class="text-center">
-      <input type="submit" class="btn btn-outline-primary btn-lg" value="Register">
+      <input type="submit" class="btn btn-outline-primary btn-lg" [disabled]="!register.valid" value="Register">
     </div>
   </form>
 </div>
