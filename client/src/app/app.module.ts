@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ValidateService } from './validate.service';
 import { PatientService } from './patient.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './auth.service';
@@ -64,7 +63,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [ValidateService, PatientService, AuthService, AuthGuard, RecordsService],
+  providers: [PatientService, AuthService, AuthGuard, RecordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

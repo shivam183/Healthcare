@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { ValidateService } from '../validate.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -14,13 +14,19 @@ export class LoginComponent implements OnInit {
 
   username: String;
   password: String;
+
+  login: FormGroup
   constructor(
     private authService: AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService,
-    private validate: ValidateService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.login = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
   }
 
 
@@ -28,11 +34,6 @@ export class LoginComponent implements OnInit {
     const user = {
       username: this.username,
       password: this.password
-    }
-
-    if (!this.validate.validateLogin(user)) {
-      this.flashMessage.show('All Fields are Required', { cssClass: 'alert-danger text-center', timeout: 3000 })
-      return false;
     }
 
     this.authService.authenticateUser(user).subscribe((data: any) => {
@@ -47,6 +48,39 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/login']);
       }
 
+    })
+  }
+
+  formErrors = {
+    'username': '',
+    'password': ''
+  }
+
+  validationMessages = {
+    'username': {
+      'required': 'Username is required.'
+    },
+    'password': {
+      'required': 'Password is required.'
+    }
+  }
+
+  logValidationErrors(group: FormGroup = this.login): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      } else {
+        this.formErrors[key] = '';
+        if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty)) {
+          const messages = this.validationMessages[key];
+          for (const errorKey in abstractControl.errors) {
+            if (errorKey) {
+              this.formErrors[key] += messages[errorKey] + ' ';
+            }
+          }
+        }
+      }
     })
   }
 }

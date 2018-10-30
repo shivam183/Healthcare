@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidateService } from '../validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -22,7 +20,6 @@ export class RegisterComponent implements OnInit {
 
   register: FormGroup
   constructor(
-    private validateService: ValidateService,
     private flashMessage: FlashMessagesService,
     private authService: AuthService,
     private router: Router,
@@ -66,15 +63,6 @@ export class RegisterComponent implements OnInit {
       email: this.email,
       username: this.username,
       password: this.password
-    }
-
-    if (!this.validateService.validateRegister(user)) {
-      this.flashMessage.show("All Fields are required", { cssClass: 'alert-danger text-center', timeout: 3000 });
-      return false;
-    }
-    if (!this.validateService.validateEmail(user.email)) {
-      this.flashMessage.show("Please enter a valid Email Address", { cssClass: 'alert-danger text-center', timeout: 3000 });
-      return false;
     }
 
     //Register User
