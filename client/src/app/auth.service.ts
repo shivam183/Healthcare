@@ -8,19 +8,19 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   authToken: any;
   user: any;
-
+  URL = 'http://localhost:3000/api/';
   constructor(private http: HttpClient) { }
 
   registerUser(user) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/register', user, {
+    return this.http.post(`${this.URL}register`, user, {
       headers: headers
     });
   }
 
   authenticateUser(user) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/api/authenticate', user, {
+    return this.http.post(`${this.URL}authenticate`, user, {
       headers: headers
     });
   }
@@ -28,7 +28,7 @@ export class AuthService {
   getProfile() {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.get('http://localhost:3000/api/profile', {
+    return this.http.get(`${this.URL}profile`, {
       headers: headers
     });
   }

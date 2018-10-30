@@ -16,6 +16,8 @@ export class PatientService {
   private apiData = new BehaviorSubject<Patient>(null);
   public apiData$ = this.apiData.asObservable();
 
+  URL = 'http://localhost:3000/api/';
+
   constructor(private http: HttpClient) { }
 
   //Retriving Patients
@@ -24,7 +26,7 @@ export class PatientService {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken).set
       ('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/api/patients', { headers: headers });
+    return this.http.get(`${this.URL}patients`, { headers: headers });
   }
 
   //Add Patient
@@ -32,7 +34,7 @@ export class PatientService {
   addPatient(newPatient) {
     this.loadToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.post('http://localhost:3000/api/patients', newPatient, { headers: headers });
+    return this.http.post(`${this.URL}patients`, newPatient, { headers: headers });
 
   }
 
@@ -40,20 +42,20 @@ export class PatientService {
   deletePatient(id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.delete('http://localhost:3000/api/patient/' + id, { headers: headers });
+    return this.http.delete(`${this.URL}patient/${id}`, { headers: headers });
   }
 
   getSinglePatient(id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.get('http://localhost:3000/api/patient/' + id, { headers: headers });
+    return this.http.get(`${this.URL}patient/${id}`, { headers: headers });
   }
 
   //Update Patient
   updatePatient(id, Patient) {
     this.loadToken();
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.put('http://localhost:3000/api/patient/' + id, Patient, { headers: headers });
+    return this.http.put(`${this.URL}patient/${id}`, Patient, { headers: headers });
   }
 
 

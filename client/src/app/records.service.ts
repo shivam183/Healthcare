@@ -14,6 +14,7 @@ export class RecordsService {
   private apiData = new BehaviorSubject<Records>(null);
   public apiData$ = this.apiData.asObservable();
 
+  URL = 'http://localhost:3000/api/patient/';
 
 
   loadToken() {
@@ -29,32 +30,32 @@ export class RecordsService {
   getRecords(id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.get('http://localhost:3000/api/patient/' + id + '/records', { headers: headers });
+    return this.http.get(`${this.URL}${id}/records`, { headers: headers });
   }
 
   addRecord(id, newRecord) {
     this.loadToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.post('http://localhost:3000/api/patient/' + id + '/records', newRecord, { headers: headers });
+    return this.http.post(`${this.URL}${id}/records`, newRecord, { headers: headers });
 
   }
 
   deleteRecord(pid, id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.delete('http://localhost:3000/api/patient/' + pid + '/record/' + id, { headers: headers });
+    return this.http.delete(`${this.URL}${pid}/record/${id}`, { headers: headers });
   }
 
   getSingleRecord(pid, id) {
     this.loadToken();
     let headers = new HttpHeaders().set('Authorization', this.authToken);
-    return this.http.get('http://localhost:3000/api/patient/' + pid + '/record/' + id, { headers: headers });
+    return this.http.get(`${this.URL}${pid}/record/${id}`, { headers: headers });
   }
 
   editRecord(pid, id, record) {
     this.loadToken();
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', this.authToken);
-    return this.http.put('http://localhost:3000/api/patient/' + pid + '/record/' + id, record, { headers: headers });
+    return this.http.put(`${this.URL}${pid}/record/${id}`, record, { headers: headers });
   }
 
   setData(data) {
