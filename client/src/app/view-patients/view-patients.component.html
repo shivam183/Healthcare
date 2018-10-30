@@ -3,6 +3,9 @@
 </div>
 <div class="container">
   <div class="column">
+    <div class="text-right">
+      <input type="text" [(ngModel)]="searchPatient" placeholder="Search By First Name" width="300px">
+    </div>
     <table class="table table-bordered table-hover table-dark">
       <thead>
         <tr>
@@ -17,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of patients">
+        <tr *ngFor="let patient of patients | patientFilter:searchPatient">
           <th scope="row">{{patient.first_name}} {{patient.last_name}}</th>
           <td>{{patient.DOB}}</td>
           <td>{{patient.email}}</td>

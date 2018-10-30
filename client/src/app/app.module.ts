@@ -21,6 +21,8 @@ import { RecordsService } from './records.service';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { EditPatientComponent } from './edit-patient/edit-patient.component';
 import { EditRecordComponent } from './edit-record/edit-record.component';
+import { PatientFiterPipe } from './view-patients/patient-filter.pipe';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
     RecordsComponent,
     AddRecordComponent,
     EditPatientComponent,
-    EditRecordComponent
+    EditRecordComponent,
+    PatientFiterPipe
   ],
   imports: [
     BrowserModule,

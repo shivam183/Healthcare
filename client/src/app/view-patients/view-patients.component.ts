@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
   selector: 'app-view-patients',
   templateUrl: './view-patients.component.html',
   styleUrls: ['./view-patients.component.css'],
-  //providers: [PatientService]
 })
 
 @Injectable()
 export class ViewPatientsComponent implements OnInit {
 
   patients: Patient[];
+  searchPatient: string;
 
   constructor(
     private patientService: PatientService,
