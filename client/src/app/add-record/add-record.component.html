@@ -1,153 +1,155 @@
-<form [formGroup]="addRecord" class="form-horizontal" (submit)="onRecordSubmit()">
-  <div class="panel panel-primary">
-    <div class="panel-heading text-center">
-      <h3 class="panel-title">Add Record</h3>
+<div class="container">
+  <h2 class="page-header text-center">Add Record</h2>
+  <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
+
+  <form [formGroup]="addRecord" class="form-horizontal" (submit)="onRecordSubmit()">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="form-group" [ngClass]="{'has-error':formErrors.date}">
+          <label class="col-sm-2 control-label" for="date">Date</label>
+          <div class="col-sm-8">
+            <input type="date" [(ngModel)]="date" name="date" placeholder="YYYY-MM-DD" formControlName="date" id="date"
+              class="form-control" (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.date">
+              {{formErrors.date}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.nurse}">
+          <label class="col-sm-2 control-label" for="nurse">Nurse</label>
+          <div class="col-sm-8">
+            <input type="text" placeholder="Name" [(ngModel)]="nurse_name" formControlName="nurse" id="nurse" class="form-control"
+              (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.nurse">
+              {{formErrors.nurse}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.type}">
+          <label class="col-sm-2 control-label" for="type">Type</label>
+          <div class="col-sm-8">
+            <input type="text" placeholder="Type" [(ngModel)]="type" formControlName="type" id="type" class="form-control"
+              (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.type">
+              {{formErrors.type}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.category}">
+          <label class="col-sm-2 control-label" for="category">Category</label>
+          <div class="col-sm-8">
+            <input type="text" placeholder="Category" [(ngModel)]="category" formControlName="category" id="category"
+              class="form-control" (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.category">
+              {{formErrors.category}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.reading1}">
+          <label class="col-sm-2 control-label" for="reading1">Reading#1</label>
+          <div class="col-sm-8">
+            <input type="text" placeholder="Reading" [(ngModel)]="reading1" formControlName="reading1" id="reading1"
+              class="form-control" (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.reading1">
+              {{formErrors.reading1}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.reading2}">
+          <label class="col-sm-2 control-label" for="reading2">Reading#2</label>
+          <div class="col-sm-8">
+            <input type="text" placeholder="Reading" [(ngModel)]="reading2" formControlName="reading2" id="reading2"
+              class="form-control" (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.reading2">
+              {{formErrors.reading2}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.bp}">
+          <label class="col-sm-2 control-label" for="bp">Blood Pressure</label>
+          <div class="col-sm-8">
+            <input type="text" placeholder="Blood Pressure" [(ngModel)]="bp" formControlName="bp" id="bp" class="form-control"
+              (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.bp">
+              {{formErrors.bp}}
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.food_allergy}">
+          <label class="col-md-2 control-label">Food Allergy</label>
+          <div class="col-md-8">
+            <label class="radio-inline" style="margin-right: 10px">
+              <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="no" (blur)="logValidationErrors()">No
+            </label>
+            <label class="radio-inline">
+              <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="yes" (blur)="logValidationErrors()">Yes
+            </label>
+          </div>
+          <span class="help-block" *ngIf="formErrors.food_allergy">
+            {{formErrors.food_allergy}}
+          </span>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.diabetic}">
+          <label class="col-md-2 control-label">Diabetic</label>
+          <div class="col-md-8">
+            <label class="radio-inline" style="margin-right: 10px">
+              <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="no" (blur)="logValidationErrors()">No
+            </label>
+            <label class="radio-inline">
+              <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="yes" (blur)="logValidationErrors()">Yes
+            </label>
+          </div>
+          <span class="help-block" *ngIf="formErrors.diabetic">
+            {{formErrors.diabetic}}
+          </span>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.heart_disease}">
+          <label class="col-md-2 control-label">Heart Disease</label>
+          <div class="col-md-8">
+            <label class="radio-inline" style="margin-right: 10px">
+              <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="no" (blur)="logValidationErrors()">No
+            </label>
+            <label class="radio-inline">
+              <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="yes" (blur)="logValidationErrors()">Yes
+            </label>
+          </div>
+          <span class="help-block" *ngIf="formErrors.heart_disease">
+            {{formErrors.heart_disease}}
+          </span>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.surgery}">
+          <label class="col-md-2 control-label">Surgery</label>
+          <div class="col-md-8">
+            <label class="radio-inline" style="margin-right: 10px">
+              <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="no" (blur)="logValidationErrors()">No
+            </label>
+            <label class="radio-inline">
+              <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="yes" (blur)="logValidationErrors()">Yes
+            </label>
+          </div>
+          <span class="help-block" *ngIf="formErrors.surgery">
+            {{formErrors.surgery}}
+          </span>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':formErrors.accident}">
+          <label class="col-md-2 control-label">Accident</label>
+          <div class="col-md-8">
+            <label class="radio-inline" style="margin-right: 10px">
+              <input type="radio" [(ngModel)]="accident" formControlName="accident" value="no" (blur)="logValidationErrors()">No
+            </label>
+            <label class="radio-inline">
+              <input type="radio" [(ngModel)]="accident" formControlName="accident" value="yes" (blur)="logValidationErrors()">Yes
+            </label>
+          </div>
+          <span class="help-block" *ngIf="formErrors.accident">
+            {{formErrors.accident}}
+          </span>
+        </div>
+      </div>
+      <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
+      <div class="panel-footer text-center">
+        <button class="btn btn-primary" type="submit" [disabled]="!addRecord.valid">Add Record</button>
+      </div>
     </div>
-    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
-    <div class="panel-body">
-      <div class="form-group" [ngClass]="{'has-error':formErrors.date}">
-        <label class="col-sm-2 control-label" for="date">Date</label>
-        <div class="col-sm-8">
-          <input type="date" [(ngModel)]="date" name="date" placeholder="YYYY-MM-DD" formControlName="date" id="date"
-            class="form-control" (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.date">
-            {{formErrors.date}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.nurse}">
-        <label class="col-sm-2 control-label" for="nurse">Nurse</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="Name" [(ngModel)]="nurse_name" formControlName="nurse" id="nurse" class="form-control"
-            (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.nurse">
-            {{formErrors.nurse}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.type}">
-        <label class="col-sm-2 control-label" for="type">Type</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="Type" [(ngModel)]="type" formControlName="type" id="type" class="form-control"
-            (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.type">
-            {{formErrors.type}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.category}">
-        <label class="col-sm-2 control-label" for="category">Category</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="Category" [(ngModel)]="category" formControlName="category" id="category"
-            class="form-control" (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.category">
-            {{formErrors.category}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.reading1}">
-        <label class="col-sm-2 control-label" for="reading1">Reading#1</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="Reading" [(ngModel)]="reading1" formControlName="reading1" id="reading1"
-            class="form-control" (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.reading1">
-            {{formErrors.reading1}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.reading2}">
-        <label class="col-sm-2 control-label" for="reading2">Reading#2</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="Reading" [(ngModel)]="reading2" formControlName="reading2" id="reading2"
-            class="form-control" (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.reading2">
-            {{formErrors.reading2}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.bp}">
-        <label class="col-sm-2 control-label" for="bp">Blood Pressure</label>
-        <div class="col-sm-8">
-          <input type="text" placeholder="Blood Pressure" [(ngModel)]="bp" formControlName="bp" id="bp" class="form-control"
-            (blur)="logValidationErrors()">
-          <span class="help-block" *ngIf="formErrors.bp">
-            {{formErrors.bp}}
-          </span>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.food_allergy}">
-        <label class="col-md-2 control-label">Food Allergy</label>
-        <div class="col-md-8">
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="no" (blur)="logValidationErrors()">No
-          </label>
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="food_allergy" formControlName="food_allergy" value="yes" (blur)="logValidationErrors()">Yes
-          </label>
-        </div>
-        <span class="help-block" *ngIf="formErrors.food_allergy">
-          {{formErrors.food_allergy}}
-        </span>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.diabetic}">
-        <label class="col-md-2 control-label">Diabetic</label>
-        <div class="col-md-8">
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="no" (blur)="logValidationErrors()">No
-          </label>
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="diabetic" formControlName="diabetic" value="yes" (blur)="logValidationErrors()">Yes
-          </label>
-        </div>
-        <span class="help-block" *ngIf="formErrors.diabetic">
-          {{formErrors.diabetic}}
-        </span>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.heart_disease}">
-        <label class="col-md-2 control-label">Heart Disease</label>
-        <div class="col-md-8">
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="no" (blur)="logValidationErrors()">No
-          </label>
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="heart_disease" formControlName="heart_disease" value="yes" (blur)="logValidationErrors()">Yes
-          </label>
-        </div>
-        <span class="help-block" *ngIf="formErrors.heart_disease">
-          {{formErrors.heart_disease}}
-        </span>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.surgery}">
-        <label class="col-md-2 control-label">Surgery</label>
-        <div class="col-md-8">
-          <label class="radio-inline mr-1">
-            <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="no" (blur)="logValidationErrors()">No
-          </label>
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="surgery" formControlName="surgery" value="yes" (blur)="logValidationErrors()">Yes
-          </label>
-        </div>
-        <span class="help-block" *ngIf="formErrors.surgery">
-          {{formErrors.surgery}}
-        </span>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':formErrors.accident}">
-        <label class="col-md-2 control-label">Accident</label>
-        <div class="col-md-8">
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="accident" formControlName="accident" value="no" (blur)="logValidationErrors()">No
-          </label>
-          <label class="radio-inline">
-            <input type="radio" [(ngModel)]="accident" formControlName="accident" value="yes" (blur)="logValidationErrors()">Yes
-          </label>
-        </div>
-        <span class="help-block" *ngIf="formErrors.accident">
-          {{formErrors.accident}}
-        </span>
-      </div>
-    </div>
-    <div class="panel-footer">
-      <button class="btn btn-primary" type="submit" [disabled]="!addRecord.valid">Add Record</button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>

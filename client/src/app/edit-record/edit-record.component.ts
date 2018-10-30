@@ -38,6 +38,9 @@ export class EditRecordComponent implements OnInit {
     'reading1': {
       'required': 'Atleast 1 reading is required.'
     },
+    'reading2': {
+      'required': 'If no reading#2. Please put -(dash).'
+    },
     'bp': {
       'required': 'Blood Pressure is required.'
     },
@@ -109,7 +112,7 @@ export class EditRecordComponent implements OnInit {
       type: ['', Validators.required],
       category: ['', Validators.required],
       reading1: ['', Validators.required],
-      reading2: [''],
+      reading2: ['', Validators.required],
       bp: ['', Validators.required],
       food_allergy: ['', Validators.required],
       diabetic: ['', Validators.required],

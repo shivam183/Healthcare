@@ -58,11 +58,14 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.reading1}">
         <label class="col-sm-2 control-label" for="reading2">Reading#2</label>
         <div class="col-sm-8">
           <input type="text" placeholder="Reading" [(ngModel)]="record.reading2" formControlName="reading2" id="reading2"
-            class="form-control">
+            class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.reading2">
+            {{formErrors.reading2}}
+          </span>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-error':formErrors.bp}">
@@ -78,7 +81,7 @@
       <div class="form-group" [ngClass]="{'has-error':formErrors.food_allergy}">
         <label class="col-md-2 control-label">Food Allergy</label>
         <div class="col-md-8">
-          <label class="radio-inline">
+          <label class="radio-inline" style="margin-right: 10px">
             <input type="radio" [(ngModel)]="record.food_allergy" formControlName="food_allergy" value="NO" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
@@ -92,7 +95,7 @@
       <div class="form-group" [ngClass]="{'has-error':formErrors.diabetic}">
         <label class="col-md-2 control-label">Diabetic</label>
         <div class="col-md-8">
-          <label class="radio-inline">
+          <label class="radio-inline" style="margin-right: 10px">
             <input type="radio" [(ngModel)]="record.diabetic" formControlName="diabetic" value="NO" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
@@ -106,7 +109,7 @@
       <div class="form-group" [ngClass]="{'has-error':formErrors.heart_disease}">
         <label class="col-md-2 control-label">Heart Disease</label>
         <div class="col-md-8">
-          <label class="radio-inline">
+          <label class="radio-inline" style="margin-right: 10px">
             <input type="radio" [(ngModel)]="record.heart_disease" formControlName="heart_disease" value="NO" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
@@ -120,7 +123,7 @@
       <div class="form-group" [ngClass]="{'has-error':formErrors.surgery}">
         <label class="col-md-2 control-label">Surgery</label>
         <div class="col-md-8">
-          <label class="radio-inline mr-1">
+          <label class="radio-inline" style="margin-right: 10px">
             <input type="radio" [(ngModel)]="record.surgery" formControlName="surgery" value="NO" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
@@ -134,7 +137,7 @@
       <div class="form-group" [ngClass]="{'has-error':formErrors.accident}">
         <label class="col-md-2 control-label">Accident</label>
         <div class="col-md-8">
-          <label class="radio-inline">
+          <label class="radio-inline" style="margin-right: 10px">
             <input type="radio" [(ngModel)]="record.accident" formControlName="accident" value="NO" (blur)="logValidationErrors()">No
           </label>
           <label class="radio-inline">
@@ -145,9 +148,9 @@
           {{formErrors.accident}}
         </span>
       </div>
-
     </div>
-    <div class="panel-footer">
+    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
+    <div class="panel-footer text-center">
       <button class="btn btn-primary" type="submit" [disabled]="!editRecord.valid">Update Record</button>
     </div>
   </form>
