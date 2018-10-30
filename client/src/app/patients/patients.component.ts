@@ -109,7 +109,7 @@ export class PatientsComponent implements OnInit {
 
     this.patientService.addPatient(newPatient).subscribe((patient: any) => {
       this.patients = patient;
-      this.flashMessage.show("Patient Sucessfully added", { cssClass: 'alert-success', timeout: 3000 });
+      this.flashMessage.show("Patient Sucessfully added", { cssClass: 'alert-success text-center', timeout: 3000 });
       this.router.navigate(['/dashboard']);
     });
 

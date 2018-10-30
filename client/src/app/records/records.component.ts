@@ -36,7 +36,7 @@ export class RecordsComponent implements OnInit {
               records.splice(i, 1)
             }
           }
-          this.flashMessage.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
+          this.flashMessage.show('Deleted Sucessfully', { cssClass: 'alert-success text-center', timeout: 3000 });
         }
       });
     }

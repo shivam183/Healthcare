@@ -92,7 +92,7 @@ export class EditPatientComponent implements OnInit {
       doctor: this.patient.doctor
     }
     this.patientService.updatePatient(this.ID, patient).subscribe((patient: any) => {
-      this.flashMessage.show(patient.msg, { cssClass: 'alert-success', timeout: 3000 })
+      this.flashMessage.show(patient.msg, { cssClass: 'alert-success text-center', timeout: 3000 })
       this.router.navigate(['/patients'])
     })
   }

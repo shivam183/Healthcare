@@ -34,7 +34,7 @@ router.post('/authenticate', (req, res, next) => {
     User.getUserByUsername(username, (err, user) => {
         if (err) { console.log(err) }
         if (!user) {
-            return res.json({ sucess: false, msg: 'user not found' });
+            return res.json({ sucess: false, msg: 'User Not Found' });
         }
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) { console.log(err) }

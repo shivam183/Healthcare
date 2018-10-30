@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
       this.user = profile.user
     },
       err => {
-        console.log(err);
         return false;
       }
     )
@@ -28,7 +27,8 @@ export class NavbarComponent implements OnInit {
 
   onLogoutClick() {
     this.authService.logout();
-    this.flashMessage.show("Logged Out Sucessfully", { cssClass: 'alert-success', timeout: 3000 })
+    this.user = null;
+    this.flashMessage.show("Logged Out Sucessfully", { cssClass: 'alert-success text-center', timeout: 3000 })
 
   }
 

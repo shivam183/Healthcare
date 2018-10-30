@@ -89,7 +89,7 @@ export class EditRecordComponent implements OnInit {
       accident: this.record.accident
     }
     this.recordService.editRecord(this.record.patient_id, this.record._id, Urecord).subscribe((record: any) => {
-      this.flashMessage.show(record.msg, { cssClass: 'alert-success', timeout: 3000 })
+      this.flashMessage.show(record.msg, { cssClass: 'alert-success text-center', timeout: 3000 })
       this.router.navigate(['/records'])
     })
   }

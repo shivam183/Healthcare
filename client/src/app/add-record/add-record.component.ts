@@ -110,7 +110,7 @@ export class AddRecordComponent implements OnInit {
     }
     this.recordService.addRecord(this.ID, newRecord).subscribe((record: any) => {
       this.records = record;
-      this.flashMessage.show("Record added sucessfully", { 'cssClass': 'alert-success', 'timeout': 3000 });
+      this.flashMessage.show("Record added sucessfully", { cssClass: 'alert-success text-center', timeout: 3000 });
       this.router.navigate(['/records']);
     })
 

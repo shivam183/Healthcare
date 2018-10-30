@@ -1,5 +1,5 @@
 <div>
-  <h2 class="page-header">Records For Patient</h2>
+  <h2 class="page-header text-center">Records For Patient</h2>
 </div>
 <div class="container">
   <div class="column">
@@ -36,10 +36,10 @@
           <td>{{record.accident}}</td>
           <td>
             <div class="btn-toolbar">
-              <button class="btn btn-default" (click)="editRecord(ID,record._id)">Edit</button>
+              <button style="width:100%" class="btn btn-outline-info" (click)="editRecord(ID,record._id)">Edit</button>
             </div>
             <div class="btn-toolbar">
-              <button class="btn btn-danger" (click)="deleteRecord(ID,record._id)">Delete</button>
+              <button style="width:100%" class="btn btn-outline-danger" (click)="deleteRecord(ID,record._id)">Delete</button>
             </div>
 
           </td>

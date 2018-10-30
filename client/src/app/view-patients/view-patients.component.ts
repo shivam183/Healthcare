@@ -32,7 +32,7 @@ export class ViewPatientsComponent implements OnInit {
                 patients.splice(i, 1);
               }
             }
-            this.flashMessasge.show('Deleted Sucessfully', { cssClass: 'alert-success', timeout: 3000 });
+            this.flashMessasge.show('Deleted Sucessfully', { cssClass: 'alert-success text-center', timeout: 3000 });
           }
         });
     }
@@ -64,7 +64,7 @@ export class ViewPatientsComponent implements OnInit {
         return true;
       }
       if (this.patients.length <= 0) {
-        this.flashMessasge.show('No Patients Found', { cssClass: 'alert-danger', timeout: 3000 })
+        this.flashMessasge.show('No Patients Found', { cssClass: 'alert-danger text-center', timeout: 3000 })
         return false;
       }
     })

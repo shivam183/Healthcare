@@ -1,8 +1,9 @@
 <div class="container">
   <h2 class="page-header text-center">Add Patient</h2>
-  <hr>
-  <form [formGroup]="addPatientForm" (submit)="addPatient()">
-    <div class="form-group" [ngClass]="{'has-error':formErrors.first_name}">
+  <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
+
+  <form [formGroup]="addPatientForm" (submit)="addPatient()" novalidate>
+    <div class="form-group has-error" [ngClass]="{'has-error':formErrors.first_name}">
       <label>First Name</label>
       <input type="text" placeholder="First Name" [(ngModel)]="first_name" formControlName="first_name" class="form-control"
         (blur)="logValidationErrors()" required>
@@ -90,9 +91,12 @@
         {{formErrors.doctor}}
       </span>
     </div>
+
     <div class="text-center">
-      <input type="submit" class="btn btn-success " [disabled]="!addPatientForm.valid" value="Add Patient">
+      <input type="submit" class="btn btn-secondary " [disabled]="!addPatientForm.valid" value="Add Patient">
     </div>
   </form>
+
 </div>
-<hr>
+
+<hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">

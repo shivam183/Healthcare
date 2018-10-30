@@ -3,7 +3,7 @@
     <div class="panel-heading text-center">
       <h3 class="panel-title">Add Record</h3>
     </div>
-    <hr>
+    <hr style="border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0;">
     <div class="panel-body">
       <div class="form-group" [ngClass]="{'has-error':formErrors.date}">
         <label class="col-sm-2 control-label" for="date">Date</label>
@@ -15,7 +15,6 @@
           </span>
         </div>
       </div>
-
       <div class="form-group" [ngClass]="{'has-error':formErrors.nurse}">
         <label class="col-sm-2 control-label" for="nurse">Nurse</label>
         <div class="col-sm-8">
@@ -26,7 +25,6 @@
           </span>
         </div>
       </div>
-
       <div class="form-group" [ngClass]="{'has-error':formErrors.type}">
         <label class="col-sm-2 control-label" for="type">Type</label>
         <div class="col-sm-8">
@@ -37,7 +35,6 @@
           </span>
         </div>
       </div>
-
       <div class="form-group" [ngClass]="{'has-error':formErrors.category}">
         <label class="col-sm-2 control-label" for="category">Category</label>
         <div class="col-sm-8">
@@ -48,7 +45,6 @@
           </span>
         </div>
       </div>
-
       <div class="form-group" [ngClass]="{'has-error':formErrors.reading1}">
         <label class="col-sm-2 control-label" for="reading1">Reading#1</label>
         <div class="col-sm-8">
@@ -59,7 +55,6 @@
           </span>
         </div>
       </div>
-
       <div class="form-group" [ngClass]="{'has-error':formErrors.reading2}">
         <label class="col-sm-2 control-label" for="reading2">Reading#2</label>
         <div class="col-sm-8">
@@ -150,7 +145,6 @@
           {{formErrors.accident}}
         </span>
       </div>
-
     </div>
     <div class="panel-footer">
       <button class="btn btn-primary" type="submit" [disabled]="!addRecord.valid">Add Record</button>

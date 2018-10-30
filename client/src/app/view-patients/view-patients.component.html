@@ -1,3 +1,6 @@
+<div>
+  <h2 class="page-header text-center">Patients</h2>
+</div>
 <div class="container">
   <div class="column">
     <table class="table table-bordered table-hover table-dark">
@@ -24,9 +27,9 @@
           <td>{{patient.doctor}}</td>
           <td>
             <div class="btn-toolbar">
-              <button class="btn btn-primary" (click)="getSinglePatient(patient._id)">Records</button>
-              <button class="btn btn-default" (click)="editPatient(patient._id)">Edit</button>
-              <button class="btn btn-danger" (click)="deletePatient(patient._id)">Delete</button>
+              <button style="width:100%" class="btn btn-outline-info" (click)="getSinglePatient(patient._id)">Records</button>
+              <button style="width:100%" class="btn btn-outline-warning" (click)="editPatient(patient._id)">Edit</button>
+              <button style="width:100%" class="btn btn-outline-danger" (click)="deletePatient(patient._id)">Delete</button>
             </div>
           </td>
         </tr>
