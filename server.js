@@ -9,7 +9,7 @@ var route = require('./routes/routes');
 const config = require('./config/database');
 
 //Connect to mongoDB
-mongoose.connect(config.database, (err) => {
+mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
 
     if (err) {
         console.log("Connection Failed" + err);
