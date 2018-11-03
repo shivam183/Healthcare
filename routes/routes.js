@@ -18,9 +18,12 @@ router.post('/register', (req, res, next) => {
 
     User.addUser(newUser, (err, user) => {
         if (err) {
+            console.log(err);
             res.json({ success: false, msg: 'Failed to Register User' });
         }
         else {
+            console.log(`-> User ${user.name} Created`);
+            res.sendStatus = 201;
             res.json({ success: true, msg: 'Registered Sucessfully' });
         }
     })
@@ -34,11 +37,13 @@ router.post('/authenticate', (req, res, next) => {
     User.getUserByUsername(username, (err, user) => {
         if (err) { console.log(err) }
         if (!user) {
-            return res.json({ sucess: false, msg: 'User Not Found' });
+            console.log('->No User Exist');
+            return res.json({ sucess: false, msg: 'Authentication Failed' });
         }
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) { console.log(err) }
             if (isMatch) {
+                console.log(`->${user.name} Logged In`);
                 const token = jwt.sign(user.toJSON(), config.secret, {
                     expiresIn: 604800
 
@@ -56,7 +61,8 @@ router.post('/authenticate', (req, res, next) => {
                 });
             }
             else {
-                return res.json({ success: false, msg: 'Wrong Password' })
+                console.log('->Wrong Password');
+                return res.json({ success: false, msg: 'Authentication Failed' })
 
             }
         })
@@ -66,7 +72,7 @@ router.post('/authenticate', (req, res, next) => {
 
 //Profile
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-
+    console.log('->User Requested');
     res.send({ user: req.user });
 });
 
@@ -74,12 +80,15 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
 router.get('/patients', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Patient.find((err, patients) => {
         if (err) {
+            console.log(err)
             res.json({ success: false, msg: "Something Went Wrong" });
         }
         if (!patients) {
+            console.log('->No Patient Found')
             res.json({ success: false, msg: "No Patients" });
         }
         else {
+            console.log('->Requested All Patients')
             res.json(patients)
         }
 
@@ -90,12 +99,15 @@ router.get('/patients', passport.authenticate('jwt', { session: false }), (req, 
 router.get('/patient/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Patient.findOne({ _id: req.params.id }, (err, patient) => {
         if (err) {
+            console.log(err);
             res.json({ success: false, msg: "Something Went Wrong" });
         }
         if (!patient) {
-            res.json({ success: false, msg: "Patient doesnot exist" });
+            console.log(`->No Patient Found with ID [${patient._id}]`)
+            res.status(404).json({ success: false, msg: "Patient doesnot exist" });
         }
         else {
+            console.log(`->Requested Single Patient ID [${req.params.id}]`);
             res.json(patient)
         }
     })
@@ -122,11 +134,12 @@ router.post('/patients', passport.authenticate('jwt', { session: false }), (req,
 
     newPatient.save((err, patient) => {
         if (err) {
-
+            console.log(err);
             res.json({ success: false, msg: 'Failed to Add Patient' });
         }
         else {
-            res.json({ success: true, msg: 'Patient Added Sucessfully' });
+            console.log(`->New Patient Added, ID:[${patient._id}]`);
+            res.status(201).json({ success: true, msg: 'Patient Added Sucessfully' });
         }
     });
 
@@ -153,12 +166,15 @@ router.put('/patient/:id', passport.authenticate('jwt', { session: false }), (re
 
     Patient.findByIdAndUpdate({ _id: req.params.id }, patient, { new: true }, (err, patient) => {
         if (err) {
+            console.log(err);
             res.json({ success: false, msg: 'Failed to Update the Patient' })
         }
         if (!patient) {
+            console.log('->No Patient Found to Update');
             res.json({ success: false, msg: 'No Patient with that ID is Found' })
         }
         else {
+            console.log(`->Patient with ID [${patient._id}] Updated`);
             res.json({ success: true, msg: 'Patient Updated Sucessfully' })
         }
     });
@@ -169,9 +185,11 @@ router.delete('/patient/:id', passport.authenticate('jwt', { session: false }), 
 
     Patient.remove({ _id: req.params.id }, (err, result) => {
         if (err) {
+            console.log(err);
             res.json(err);
         }
         else {
+            console.log(`->Patient with ID [${req.params.id}] deleted`);
             res.json(result);
         }
     });
@@ -182,18 +200,26 @@ router.delete('/patient/:id', passport.authenticate('jwt', { session: false }), 
 router.get('/patient/:id/records', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     Patient.findById({ _id: req.params.id }, (err, patient) => {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
         if (!patient) {
-            res.json({ success: false, msg: "No Patient Found" })
+            console.log(`No patient with ID ${req.params.id} found`);
+            res.status(404).json({ success: false, msg: "No Patient Found" })
         }
         else {
             Record.find({ patient_id: req.params.id }, (err, records) => {
                 if (err) {
+                    console.log(err);
                     res.json({ success: false, msg: "Something Went Wrong" });
                 }
                 if (!records) {
-                    res.json({ success: false, msg: "No Records Found" });
+                    console.log('No Records Found')
+                    res.status(404).json({ success: false, msg: "No Records Found" });
                 }
                 else {
+                    console.log(`->Requested All Records for Patient [${req.params.id}]`)
                     res.json(records)
                 }
 
@@ -224,18 +250,23 @@ router.post('/patient/:id/records', passport.authenticate('jwt', { session: fals
     });
 
     Patient.findById({ _id: req.params.id }, (err, patient) => {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
         if (!patient) {
-            res.json({ success: false, msg: "No Patient Found" })
+            console.log(`->No Patient with ID ${req.params.id} found`);
+            res.status(404).json({ success: false, msg: "No Patient Found" })
         }
         else {
             newRecord.save((err, record) => {
                 if (err) {
-
+                    console.log(err);
                     res.json({ success: false, msg: 'Failed to add Record' })
                 }
                 else {
-
-                    res.json({ success: true, msg: 'Record added Sucessfully' })
+                    console.log(`->Record with ID [${record._id}] Added for Patient ID [${req.params.id}]`);
+                    res.status(201).json({ success: true, msg: 'Record added Sucessfully' })
                 }
             });
 
@@ -249,16 +280,22 @@ router.post('/patient/:id/records', passport.authenticate('jwt', { session: fals
 router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     Patient.findById({ _id: req.params.pid }, (err, patient) => {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
         if (!patient) {
-            res.json({ success: false, msg: "No Patient Found" })
+            console.log(`->No Patient with ID [${req.params.pid}] Found`);
+            res.status(404).json({ success: false, msg: "No Patient Found" })
         }
         else {
             Record.deleteOne({ _id: req.params.id }, (err, result) => {
                 if (err) {
-
+                    console.log(err);
                     res.json(err);
                 }
                 else {
+                    console.log(`->Record ID [${req.params.id}] Deleted for Patient ID [${req.params.pid}]`)
                     res.json(result);
                 }
             });
@@ -270,19 +307,26 @@ router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session
 //Get Record By ID
 router.get('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Patient.findById({ _id: req.params.pid }, (err, patient) => {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
         if (!patient) {
-            res.json({ success: false, msg: "No Patient Found" })
+            console.log(`->No Patient with ID [${req.params.pid}] Found`);
+            res.status(404).json({ success: false, msg: "No Patient Found" })
         }
         else {
             Record.getRecordById({ _id: req.params.id }, (err, record) => {
                 if (err) {
-
+                    console.log(err);
                     res.json(err);
                 }
                 if (!record) {
-                    res.json({ success: false, msg: 'No Record Found' })
+                    console.log(`->No Record with ID [${req.params.id}] Found`)
+                    res.status(404).json({ success: false, msg: 'No Record Found' })
                 }
                 else {
+                    console.log(`->Single Record [${req.params.id}] Requested for Patient ID [${req.params.pid}]`)
                     res.json(record);
                 }
             });
@@ -308,18 +352,32 @@ router.put('/patient/:pid/record/:id', passport.authenticate('jwt', { session: f
         surgery: req.body.surgery,
         accident: req.body.accident
     });
-
-    Record.findByIdAndUpdate({ _id: req.params.id }, record, { new: true }, (err, record) => {
+    Patient.findById({ _id: req.params.pid }, (err, patient) => {
         if (err) {
-            res.json({ success: false, msg: 'Failed to Update the Record' })
-
+            console.log(err);
+            res.json(err);
         }
-        if (!record) {
-            res.json({ success: false, msg: 'No Record Found' })
-
+        if (!patient) {
+            console.log(`->No Patient with ID [${req.params.pid}] Found`);
+            res.status(404).json({ success: false, msg: "No Patient Found" })
         }
         else {
-            res.json({ success: true, msg: 'Record Updated Successfully' })
+            Record.findByIdAndUpdate({ _id: req.params.id }, record, { new: true }, (err, record) => {
+                if (err) {
+                    console.log(err);
+                    res.json({ success: false, msg: 'Failed to Update the Record' })
+
+                }
+                if (!record) {
+                    console.log(`->No Record with ID [${req.params.id}] Found`);
+                    res.status(404).json({ success: false, msg: 'No Record Found' })
+
+                }
+                else {
+                    console.log(`->Record with ID [${req.params.id}] Updated For Patient [${req.params.pid}]`)
+                    res.json({ success: true, msg: 'Record Updated Successfully' })
+                }
+            });
         }
     });
 
