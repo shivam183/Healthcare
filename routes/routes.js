@@ -181,18 +181,27 @@ router.delete('/patient/:id', passport.authenticate('jwt', { session: false }), 
 //Get Record for a patient
 router.get('/patient/:id/records', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
-    Record.find({ patient_id: req.params.id }, (err, records) => {
-        if (err) {
-            res.json({ success: false, msg: "Something Went Wrong" });
-        }
-        if (!records) {
-            res.json({ success: false, msg: "No Records Found" });
+    Patient.findById({ _id: req.params.id }, (err, patient) => {
+        if (!patient) {
+            res.json({ success: false, msg: "No Patient Found" })
         }
         else {
-            res.json(records)
-        }
+            Record.find({ patient_id: req.params.id }, (err, records) => {
+                if (err) {
+                    res.json({ success: false, msg: "Something Went Wrong" });
+                }
+                if (!records) {
+                    res.json({ success: false, msg: "No Records Found" });
+                }
+                else {
+                    res.json(records)
+                }
 
-    });
+            });
+
+        }
+    })
+
 });
 
 //Add record for a Patient
@@ -212,47 +221,74 @@ router.post('/patient/:id/records', passport.authenticate('jwt', { session: fals
         heart_disease: req.body.heart_disease,
         surgery: req.body.surgery,
         accident: req.body.accident
-    })
-    newRecord.save((err, record) => {
-        if (err) {
+    });
 
-            res.json({ success: false, msg: 'Failed to add Record' })
+    Patient.findById({ _id: req.params.id }, (err, patient) => {
+        if (!patient) {
+            res.json({ success: false, msg: "No Patient Found" })
         }
         else {
+            newRecord.save((err, record) => {
+                if (err) {
 
-            res.json({ success: true, msg: 'Record added Sucessfully' })
+                    res.json({ success: false, msg: 'Failed to add Record' })
+                }
+                else {
+
+                    res.json({ success: true, msg: 'Record added Sucessfully' })
+                }
+            });
+
         }
-    });
+    })
+
 
 });
 
 //Delete Record
 router.delete('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Record.deleteOne({ _id: req.params.id }, (err, result) => {
-        if (err) {
 
-            res.json(err);
+    Patient.findById({ _id: req.params.pid }, (err, patient) => {
+        if (!patient) {
+            res.json({ success: false, msg: "No Patient Found" })
         }
         else {
-            res.json(result);
+            Record.deleteOne({ _id: req.params.id }, (err, result) => {
+                if (err) {
+
+                    res.json(err);
+                }
+                else {
+                    res.json(result);
+                }
+            });
         }
-    });
+    })
+
 });
 
 //Get Record By ID
 router.get('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Record.getRecordById({ _id: req.params.id }, (err, record) => {
-        if (err) {
-
-            res.json(err);
-        }
-        if (!record) {
-            res.json({ success: false, msg: 'No Record Found' })
+    Patient.findById({ _id: req.params.pid }, (err, patient) => {
+        if (!patient) {
+            res.json({ success: false, msg: "No Patient Found" })
         }
         else {
-            res.json(record);
+            Record.getRecordById({ _id: req.params.id }, (err, record) => {
+                if (err) {
+
+                    res.json(err);
+                }
+                if (!record) {
+                    res.json({ success: false, msg: 'No Record Found' })
+                }
+                else {
+                    res.json(record);
+                }
+            });
         }
-    });
+    })
+
 });
 
 router.put('/patient/:pid/record/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
