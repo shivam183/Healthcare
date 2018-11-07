@@ -58,7 +58,7 @@ router.post('/authenticate', [
             if (err) { console.log(err) }
             if (!user) {
                 console.log('->No User Exist');
-                return res.status(403).json({ sucess: false, msg: 'Authentication Failed' });
+                return res.json({ sucess: false, msg: 'Authentication Failed' });
             }
             User.comparePassword(password, user.password, (err, isMatch) => {
                 if (err) { console.log(err) }
@@ -82,7 +82,7 @@ router.post('/authenticate', [
                 }
                 else {
                     console.log('->Wrong Password');
-                    return res.status(403).json({ success: false, msg: 'Authentication Failed' })
+                    return res.json({ success: false, msg: 'Authentication Failed' })
 
                 }
             })
@@ -215,7 +215,7 @@ router.put('/patient/:id', [
             doctor: req.body.doctor
         });
 
-        Patient.findByIdAndUpdate({ _id: req.params.id }, patient, { new: true }, (err, patient) => {
+        Patient.findOneAndUpdate({ _id: req.params.id }, patient, { new: true }, (err, patient) => {
             if (err) {
                 console.log(err);
                 res.json({ success: false, msg: 'Failed to Update the Patient' })
@@ -235,7 +235,7 @@ router.put('/patient/:id', [
 //Delete patient
 router.delete('/patient/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
-    Patient.remove({ _id: req.params.id }, (err, result) => {
+    Patient.deleteOne({ _id: req.params.id }, (err, result) => {
         if (err) {
             console.log(err);
             res.json(err);
@@ -292,7 +292,7 @@ router.post('/patient/:id/records', [
     check('reading2').isString().trim().withMessage('Reading 2 is Required'),
     check('food_allergy').isString().trim().withMessage('Please Specify Food Allergy'),
     check('bp').isString().trim().withMessage('Blood Pressure is Required'),
-    check('diabetic').isNumeric().trim().withMessage('Please Specify Diabetic'),
+    check('diabetic').isString().trim().withMessage('Please Specify Diabetic'),
     check('heart_disease').isString().trim().withMessage('Please Specify Heart Disease'),
     check('surgery').isString().trim().withMessage('Please Specify Surgery'),
     check('accident').isString().trim().withMessage('Please Specify Accident')
@@ -412,7 +412,7 @@ router.put('/patient/:pid/record/:id', [
     check('reading2').isString().trim().withMessage('Reading 2 is Required'),
     check('food_allergy').isString().trim().withMessage('Please Specify Food Allergy'),
     check('bp').isString().trim().withMessage('Blood Pressure is Required'),
-    check('diabetic').isNumeric().trim().withMessage('Please Specify Diabetic'),
+    check('diabetic').isString().trim().withMessage('Please Specify Diabetic'),
     check('heart_disease').isString().trim().withMessage('Please Specify Heart Disease'),
     check('surgery').isString().trim().withMessage('Please Specify Surgery'),
     check('accident').isString().trim().withMessage('Please Specify Accident')
@@ -446,7 +446,7 @@ router.put('/patient/:pid/record/:id', [
                 res.status(404).json({ success: false, msg: "No Patient Found" })
             }
             else {
-                Record.findByIdAndUpdate({ _id: req.params.id }, record, { new: true }, (err, record) => {
+                Record.findOneAndUpdate({ _id: req.params.id }, record, { new: true }, (err, record) => {
                     if (err) {
                         console.log(err);
                         res.json({ success: false, msg: 'Failed to Update the Record' })

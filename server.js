@@ -7,17 +7,42 @@ var path = require('path');
 var passport = require('passport');
 var route = require('./routes/routes');
 const config = require('./config/database');
+const Mockgoose = require('mockgoose').Mockgoose;
+var mockgoose = new Mockgoose(mongoose);
+const conn = require('./config/databaseConnection');
+
+
 
 //Connect to mongoDB
-mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
+/*if (process.env.NODE_ENV === 'test') {
+    mockgoose.prepareStorage().then(() => {
+        mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
 
-    if (err) {
-        console.log("Connection Failed" + err);
-    }
-    else {
-        console.log("Connection Sucessful");
-    }
-});
+            if (err) {
+                console.log("Connection Failed" + err);
+            }
+            else {
+                console.log("Test Connection Sucessful");
+            }
+
+        })
+    })
+}
+else {
+    mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
+
+        if (err) {
+            console.log("Connection Failed" + err);
+        }
+        else {
+            console.log("Main DB Connection Sucessful");
+        }
+    })
+
+}*/
+
+conn.open();
+
 
 //Use Express
 var app = express();
