@@ -7,14 +7,15 @@ var path = require('path');
 var passport = require('passport');
 var route = require('./routes/routes');
 const config = require('./config/database');
-const Mockgoose = require('mockgoose').Mockgoose;
-var mockgoose = new Mockgoose(mongoose);
-const conn = require('./config/databaseConnection');
 
-
-conn.open();
-
-
+mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
+    if (err) {
+        console.log("Connection Failed" + err);
+    }
+    else {
+        console.log("Connection Sucessful");
+    }
+});
 //Use Express
 var app = express();
 
