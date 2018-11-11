@@ -3,6 +3,7 @@ DMC is a portal where nurses can register and login and view all patients and ad
 
 This is a MEAN Stack Application.<br>
 
+<h2>Production</h2>
 Packages Used-<br>
 Angular-CLI<br>
 BcryptJS<br>
@@ -13,7 +14,15 @@ Jsonwebtoken<br>
 mongoose<br>
 nodemon<br>
 passport<br>
-passport-jwt
+passport-jwt<br>
+
+<h2>Development(e2e Testing)</h2>
+Chai<br>
+Mocha<br>
+Mockgoose(Mongo Mocking)<br>
+
+<h2>Monitering</h2>
+Keymetrics (PM2)
 
 You can run this project by running `npm install` in root directory then `nodemon`. This will run project on port 3000.
 
