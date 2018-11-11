@@ -21,10 +21,11 @@ Chai<br>
 Mocha<br>
 Mockgoose(Mongo Mocking)<br>
 
-<h2>Monitering</h2>
+<h2>Monitoring</h2>
 Keymetrics (PM2)
 
-You can run this project by running `npm install` in root directory then `nodemon`. This will run project on port 3000.
+<h2>Running this Project</h2>
+You can run this project by running `npm install` in root directory then `nodemon` or `pm2 start server.js`. This will run project on port 3000.
 
 For FrontEnd Angular go to Client Folder and `npm install` then `ng s -o` will open the app on port 4200.
 
