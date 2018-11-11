@@ -72,12 +72,12 @@ describe('===>>Authentication Test', () => {
     })
 
     describe('3) When POST wrong user to Authenticate', () => {
-        it('should return 404 status', (done) => {
+        it('should return success false', (done) => {
             chai.request(Patient_URI)
                 .post('/authenticate')
                 .send({ username: "any", password: "any" })
                 .then((res) => {
-                    expect(res).to.have.status(404);
+                    expect(res.body.success).to.equal(false);
                     done();
                 }).catch((err) => done(err));
         })
