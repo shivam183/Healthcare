@@ -28,55 +28,69 @@ after((done) => {
     conn.close().then(() => done()).catch(done);
 })
 
+var token = null;
+var patientID = null;
 
-
-/*
-var newUser = new User({
-    name: "test",
-    username: "test",
-    email: "test@test.com",
-    password: "test"
-})
-describe('When POST to add User', () => {
-
-    it('should Add a user', (done) => {
-        chai.request(Patient_URI)
-            .post('/register')
-            .type('form')
-            .send(User.addUser(newUser, (err, user) => { console.log(err) }))
-            .then((res) => {
-                //expect(res.name).to.equal('Test')
-                expect(res).to.have.status(201);
-                done();
-            })
-            .catch((err) => done(err))
-
-    })
-})*/
-
-
-/*
-describe('When POST user to Authenticate', () => {
-    it('should return JWT', (done) => {
-        chai.request(Patient_URI)
-            .post('/authenticate')
-            .send({ username: "test", password: "test" })
-            .then((res) => {
-                expect(res).to.have.status(403);
-            }).then(() => done()).catch((err) => done(err));
-    })
-})*/
-
-describe('Patient Test', () => {
-    describe('When GET all patient request with no Token', () => {
-        it('should return HTTP 401', (done) => {
+describe('===>>Authentication Test', () => {
+    describe('1) When POST to add User', () => {
+        it('should Add a user', (done) => {
             chai.request(Patient_URI)
-                .get('/patients')
+                .post('/register')
+                .send({
+                    name: "test",
+                    username: "test",
+                    email: "test@test.com",
+                    password: "test"
+                })
                 .then((res) => {
-                    expect(res).to.have.status(401);
-                }).then(done()).catch(err => done(err));
-        });
-    });
+                    expect(res).to.have.status(201);
+                    done();
+                })
+                .catch((err) => done(err))
 
-});
+        })
+    })
+
+    describe('2) When POST to add Invalid User', () => {
+        it('should return 422 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/register')
+                .send({
+                    name: "test",
+                    email: "test@test.com",
+                    password: "test"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(422);
+                    done();
+                })
+                .catch((err) => done(err));
+        })
+    })
+
+    describe('3) When POST wrong user to Authenticate', () => {
+        it('should return 404 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/authenticate')
+                .send({ username: "any", password: "any" })
+                .then((res) => {
+                    expect(res).to.have.status(404);
+                    done();
+                }).catch((err) => done(err));
+        })
+    })
+    describe('4) When POST user with valid credentials to Authenticate', () => {
+        it('should return 200 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/authenticate')
+                .send({ username: "test", password: "test" })
+                .then((res) => {
+                    expect(res).to.have.status(200)
+                    token = res.body.token;
+                    done();
+                }).catch((err) => done(err));
+        })
+    })
+})
+
 

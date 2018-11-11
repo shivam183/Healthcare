@@ -58,7 +58,7 @@ router.post('/authenticate', [
             if (err) { console.log(err) }
             if (!user) {
                 console.log('->No User Exist');
-                return res.json({ sucess: false, msg: 'Authentication Failed' });
+                return res.status(404).json({ sucess: false, msg: 'Authentication Failed' });
             }
             User.comparePassword(password, user.password, (err, isMatch) => {
                 if (err) { console.log(err) }
@@ -82,7 +82,7 @@ router.post('/authenticate', [
                 }
                 else {
                     console.log('->Wrong Password');
-                    return res.json({ success: false, msg: 'Authentication Failed' })
+                    return res.status(404).json({ success: false, msg: 'Authentication Failed' })
 
                 }
             })
