@@ -261,7 +261,7 @@ router.get('/patient/:id/records', passport.authenticate('jwt', { session: false
             res.json(err);
         }
         if (!patient) {
-            console.log(`No patient with ID ${req.params.id} found`);
+            console.log(`->No patient with ID [${req.params.id}] found`);
             res.status(404).json({ success: false, msg: "No Patient Found" })
         }
         else {
@@ -327,7 +327,7 @@ router.post('/patient/:id/records', [
                 res.json(err);
             }
             if (!patient) {
-                console.log(`->No Patient with ID ${req.params.id} found`);
+                console.log(`->No Patient with ID [${req.params.id}] found`);
                 res.status(404).json({ success: false, msg: "No Patient Found" })
             }
             else {

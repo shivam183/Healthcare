@@ -30,6 +30,9 @@ after((done) => {
 
 var token = null;
 var patientID = null;
+var Patient_For_Record = null;
+var RecordID = null;
+var Random_NoN_valid_ID = new mongoose.mongo.ObjectId();
 
 describe('===>>Authentication Test', () => {
     describe('1) When POST to add User', () => {
@@ -333,4 +336,372 @@ describe('===>>Patient Test', () => {
     })
 
 });
+
+describe('===>>Record', () => {
+
+    before((done => {
+        chai.request(Patient_URI)
+            .post('/patients')
+            .set('Authorization', token)
+            .send({
+                first_name: "Test",
+                last_name: "Test",
+                DOB: "18-03-1997",
+                email: "test@test.com",
+                address: "1 yonge street",
+                city: "Toronto",
+                province: "ON",
+                postal_code: "M9W6B4",
+                phone: "6479368241",
+                department: "test",
+                doctor: "test"
+            })
+            .then((res) => {
+                expect(res.body.success).to.equal(true);
+                expect(res).to.have.status(201);
+            })
+        chai.request(Patient_URI)
+            .get('/patients')
+            .set('Authorization', token)
+            .then((res) => {
+                Patient_For_Record = res.body[0]._id;
+                done();
+            }).catch(err => done(err));
+
+    }))
+
+    describe('1) When GET all records for a patient request with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + patientID + '/records')
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                }).catch(err => done(err));
+        });
+    });
+
+    describe('2) When GET single record for a patient request with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + Patient_For_Record + '/record/' + RecordID)
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                }).catch(err => done(err));
+        });
+    });
+
+    describe('3) When POST record for a patient with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/patient/' + patientID + '/records')
+                .send({
+                    patient_id: patientID,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    reading2: "-",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('4) When PUT patient with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .put('/patient/' + Patient_For_Record + '/record/' + RecordID)
+                .send({
+                    patient_id: Patient_For_Record,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    reading2: "-",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('5) When DEL patient with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .del('/patient/' + Patient_For_Record)
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('6) When POST record for patient with Token', () => {
+        it('should add Record', (done) => {
+            chai.request(Patient_URI)
+                .post('/patient/' + Patient_For_Record + '/records')
+                .set('Authorization', token)
+                .send({
+                    patient_id: Patient_For_Record,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    reading2: "-",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res.body.success).to.equal(true);
+                    expect(res).to.have.status(201);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('7) When GET all records for patient with Token', () => {
+        it('should return get all Records', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + Patient_For_Record + '/records')
+                .set('Authorization', token)
+                .then((res) => {
+                    RecordID = res.body[0]._id;
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('8) When GET single record for patient with Token', () => {
+        it('should return single Record', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + Patient_For_Record + '/record/' + RecordID)
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('9) When PUT on record for patient with Token', () => {
+        it('should update single Record', (done) => {
+            chai.request(Patient_URI)
+                .put('/patient/' + Patient_For_Record + '/record/' + RecordID)
+                .set('Authorization', token)
+                .send({
+                    patient_id: Patient_For_Record,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    reading2: "-",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('10) When POST record for patient with invalid data', () => {
+        it('should return 422 Status', (done) => {
+            chai.request(Patient_URI)
+                .post('/patient/' + Patient_For_Record + '/records')
+                .set('Authorization', token)
+                .send({
+                    patient_id: Patient_For_Record,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(422);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('11) When PUT record for patient with invalid data', () => {
+        it('should return 422 Status', (done) => {
+            chai.request(Patient_URI)
+                .put('/patient/' + Patient_For_Record + '/record/' + RecordID)
+                .set('Authorization', token)
+                .send({
+                    patient_id: Patient_For_Record,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(422);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('12) When GET all records for patient with Wrong PatientID', () => {
+        it('should return 404 Status', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + Random_NoN_valid_ID + '/records')
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res.body.success).to.equal(false);
+                    expect(res).to.have.status(404);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('13) When GET single record for patient with Wrong PatientID', () => {
+        it('should return 404 Status', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + Random_NoN_valid_ID + '/record/' + RecordID)
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res.body.success).to.equal(false);
+                    expect(res).to.have.status(404);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('14) When POST single record for patient with Wrong PatientID', () => {
+        it('should return 404 Status', (done) => {
+            chai.request(Patient_URI)
+                .post('/patient/' + Random_NoN_valid_ID + '/records')
+                .set('Authorization', token)
+                .send({
+                    patient_id: Random_NoN_valid_ID,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    reading2: "-",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res.body.success).to.equal(false);
+                    expect(res).to.have.status(404);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('15) When PUT single record for patient with Wrong PatientID', () => {
+        it('should return 404 Status', (done) => {
+            chai.request(Patient_URI)
+                .post('/patient/' + Random_NoN_valid_ID + '/records')
+                .set('Authorization', token)
+                .send({
+                    patient_id: Random_NoN_valid_ID,
+                    date: "2018-10-20",
+                    nurse_name: "test",
+                    type: "TEST",
+                    category: "BLOOD",
+                    reading1: "11",
+                    reading2: "-",
+                    food_allergy: "NO",
+                    bp: "17/25",
+                    diabetic: "NO",
+                    heart_disease: "NO",
+                    surgery: "YES",
+                    accident: "YES"
+                })
+                .then((res) => {
+                    expect(res.body.success).to.equal(false);
+                    expect(res).to.have.status(404);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('16) When DEL single record for patient with Wrong PatientID', () => {
+        it('should return 404 Status', (done) => {
+            chai.request(Patient_URI)
+                .del('/patient/' + Random_NoN_valid_ID + '/record/' + RecordID)
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res.body.success).to.equal(false);
+                    expect(res).to.have.status(404);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('17) When DEL single record for patient', () => {
+        it('should return 404 Status', (done) => {
+            chai.request(Patient_URI)
+                .del('/patient/' + Patient_For_Record + '/record/' + RecordID)
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res.body.ok).to.equal(1);
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+})
 
