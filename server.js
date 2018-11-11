@@ -12,35 +12,6 @@ var mockgoose = new Mockgoose(mongoose);
 const conn = require('./config/databaseConnection');
 
 
-
-//Connect to mongoDB
-/*if (process.env.NODE_ENV === 'test') {
-    mockgoose.prepareStorage().then(() => {
-        mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
-
-            if (err) {
-                console.log("Connection Failed" + err);
-            }
-            else {
-                console.log("Test Connection Sucessful");
-            }
-
-        })
-    })
-}
-else {
-    mongoose.connect(config.database, { useNewUrlParser: true }, (err) => {
-
-        if (err) {
-            console.log("Connection Failed" + err);
-        }
-        else {
-            console.log("Main DB Connection Sucessful");
-        }
-    })
-
-}*/
-
 conn.open();
 
 
@@ -65,7 +36,7 @@ app.use('/api', route);
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Port Number
-var port = 3000;
+var port = process.env.PORT || 8080;
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));

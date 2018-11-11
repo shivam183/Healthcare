@@ -14,7 +14,7 @@ export class RecordsService {
   private apiData = new BehaviorSubject<Records>(null);
   public apiData$ = this.apiData.asObservable();
 
-  URL = 'http://localhost:3000/api/patient/';
+  URL = 'api/patient/';
 
 
   loadToken() {

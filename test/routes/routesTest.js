@@ -24,7 +24,6 @@ before((done) => {
 })
 
 after((done) => {
-
     conn.close().then(() => done()).catch(done);
 })
 
@@ -328,6 +327,7 @@ describe('===>>Patient Test', () => {
                 .del('/patient/' + patientID)
                 .set('Authorization', token)
                 .then((res) => {
+                    expect(res.body.ok).to.equal(1);
                     expect(res).to.have.status(200);
                     done();
                 })
@@ -691,7 +691,7 @@ describe('===>>Record', () => {
         })
     })
     describe('17) When DEL single record for patient', () => {
-        it('should return 404 Status', (done) => {
+        it('should return 200 Status', (done) => {
             chai.request(Patient_URI)
                 .del('/patient/' + Patient_For_Record + '/record/' + RecordID)
                 .set('Authorization', token)

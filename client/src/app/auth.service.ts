@@ -8,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   authToken: any;
   user: any;
-  URL = 'http://localhost:3000/api/';
+  URL = 'api/';
   constructor(private http: HttpClient) { }
 
   registerUser(user) {

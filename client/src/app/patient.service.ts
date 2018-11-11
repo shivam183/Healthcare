@@ -16,7 +16,7 @@ export class PatientService {
   private apiData = new BehaviorSubject<Patient>(null);
   public apiData$ = this.apiData.asObservable();
 
-  URL = 'http://localhost:3000/api/';
+  URL = 'api/';
 
   constructor(private http: HttpClient) { }
 
