@@ -91,6 +91,246 @@ describe('===>>Authentication Test', () => {
                 }).catch((err) => done(err));
         })
     })
+    describe('5) When POST user with Invalid credentials to Authenticate', () => {
+        it('should return 422 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/authenticate')
+                .send({ username: "test" })
+                .then((res) => {
+                    expect(res).to.have.status(422)
+                    done();
+                }).catch((err) => done(err));
+        })
+    })
 })
 
+describe('===>>Patient Test', () => {
+    describe('1) When GET all patient request with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .get('/patients')
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                }).catch(err => done(err));
+        });
+    });
+
+    describe('2) When GET single patient request with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + patientID)
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                }).catch(err => done(err));
+        });
+    });
+
+    describe('3) When POST patient with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/patients')
+                .send({
+                    first_name: "Test",
+                    last_name: "Test",
+                    DOB: "18-03-1997",
+                    email: "test@test.com",
+                    address: "1 yonge street",
+                    city: "Toronto",
+                    province: "ON",
+                    postal_code: "M9W6B4",
+                    phone: "6479368241",
+                    department: "test",
+                    doctor: "test"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('4) When PUT patient with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .put('/patient/' + patientID)
+                .send({
+                    first_name: "Test",
+                    last_name: "Test",
+                    DOB: "18-03-1997",
+                    email: "test@test.com",
+                    address: "1 yonge street",
+                    city: "Toronto",
+                    province: "ON",
+                    postal_code: "M9W6B4",
+                    phone: "6479368241",
+                    department: "test",
+                    doctor: "test"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('5) When DEL patient with no Token', () => {
+        it('should return 401 status', (done) => {
+            chai.request(Patient_URI)
+                .del('/patient/' + patientID)
+                .then((res) => {
+                    expect(res).to.have.status(401);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('6) When POST patient with Token', () => {
+        it('should return add Patient', (done) => {
+            chai.request(Patient_URI)
+                .post('/patients')
+                .set('Authorization', token)
+                .send({
+                    first_name: "Test",
+                    last_name: "Test",
+                    DOB: "18-03-1997",
+                    email: "test@test.com",
+                    address: "1 yonge street",
+                    city: "Toronto",
+                    province: "ON",
+                    postal_code: "M9W6B4",
+                    phone: "6479368241",
+                    department: "test",
+                    doctor: "test"
+                })
+                .then((res) => {
+                    expect(res.body.success).to.equal(true);
+                    expect(res).to.have.status(201);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('7) When POST patient with invalid data', () => {
+        it('should return 422 status', (done) => {
+            chai.request(Patient_URI)
+                .post('/patients')
+                .set('Authorization', token)
+                .send({
+                    first_name: "Test",
+                    last_name: "Test",
+                    DOB: "18-03-1997",
+                    email: "test@test.com",
+                    address: "1 yonge street",
+                    city: "Toronto",
+                    postal_code: "M9W6B4",
+                    phone: "6479368241",
+                    department: "test",
+                    doctor: "test"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(422);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('8) When GET all patient with Token', () => {
+        it('should return all Patients', (done) => {
+            chai.request(Patient_URI)
+                .get('/patients')
+                .set('Authorization', token)
+                .then((res) => {
+                    patientID = res.body[0]._id;
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('9) When GET single patient with Token', () => {
+        it('should return Single Patient', (done) => {
+            chai.request(Patient_URI)
+                .get('/patient/' + patientID)
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('10) When PUT patient with Token', () => {
+        it('should update Patient', (done) => {
+            chai.request(Patient_URI)
+                .put('/patient/' + patientID)
+                .set('Authorization', token)
+                .send({
+                    first_name: "Test",
+                    last_name: "Test",
+                    DOB: "18-03-1997",
+                    email: "test@test.com",
+                    address: "1 yonge street",
+                    city: "Toronto",
+                    province: "ON",
+                    postal_code: "M9W6B4",
+                    phone: "6479368241",
+                    department: "test",
+                    doctor: "test"
+                })
+                .then((res) => {
+                    expect(res.body.success).to.equal(true);
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+    describe('11) When PUT patient with invalid data', () => {
+        it('should return 422 status', (done) => {
+            chai.request(Patient_URI)
+                .put('/patient/' + patientID)
+                .set('Authorization', token)
+                .send({
+                    first_name: "Test",
+                    last_name: "Test",
+                    DOB: "18-03-1997",
+                    email: "test@test.com",
+                    address: "1 yonge street",
+                    city: "Toronto",
+                    postal_code: "M9W6B4",
+                    phone: "6479368241",
+                    department: "test",
+                    doctor: "test"
+                })
+                .then((res) => {
+                    expect(res).to.have.status(422);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+    describe('12) When DEL patient with Token', () => {
+        it('should return 200 status', (done) => {
+            chai.request(Patient_URI)
+                .del('/patient/' + patientID)
+                .set('Authorization', token)
+                .then((res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                })
+                .catch(err => done(err));
+        })
+    })
+
+});
 

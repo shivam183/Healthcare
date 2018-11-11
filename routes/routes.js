@@ -19,6 +19,7 @@ router.post('/register', [
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('-> Invalid data to Add user')
         res.status(422).json({ errors: errors.array() });
     } else {
 
@@ -49,6 +50,7 @@ router.post('/authenticate', [
 ], (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('-> Invalid data to Auth User')
         res.status(422).json({ errors: errors.array() });
     } else {
         const username = req.body.username;
@@ -150,6 +152,7 @@ router.post('/patients', [
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('-> Invalid data to Add Patient')
         res.status(422).json({ errors: errors.array() });
     } else {
         let newPatient = new Patient({
@@ -198,6 +201,7 @@ router.put('/patient/:id', [
 ], passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('-> Invalid data to Update Patient')
         res.status(422).json({ errors: errors.array() });
     } else {
         let patient = ({
