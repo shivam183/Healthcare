@@ -23,7 +23,7 @@ export class ViewPatientsComponent implements OnInit {
 
   deletePatient(id: any) {
     var patients = this.patients;
-    if (window.confirm("Are you sure you want to Delete this patient?")) {
+    if (window.confirm("Are you sure you want to Delete this patient and all of its associated Records?")) {
       this.patientService.deletePatient(id)
         .subscribe((data: any) => {
           if (data.n == 1) {
