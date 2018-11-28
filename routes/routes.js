@@ -245,8 +245,21 @@ router.delete('/patient/:id', passport.authenticate('jwt', { session: false }), 
             res.json(err);
         }
         else {
-            console.log(`->Patient with ID [${req.params.id}] deleted`);
-            res.json(result);
+            Record.find({ patient_id: req.params.id }, (err, records) => {
+                if (err) {
+                    console.log(err);
+                    res.json({ success: false, msg: "Something Went Wrong" });
+                }
+            }).remove((err) => {
+                if (err) {
+                    console.log(err);
+                    res.json({ success: false, msg: "Something Went Wrong" });
+                }
+                else {
+                    res.json(result)
+                    console.log(`->Patient with ID [${req.params.id}] deleted and all Records`);
+                }
+            })
         }
     });
 
